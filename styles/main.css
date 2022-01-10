@@ -1,0 +1,103 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.grid-wrapper {
+  height: 800px;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+}
+
+.grid {
+  align-items: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  justify-content: center;
+  height: 500px;
+  width: 500px;
+}
+
+.grid div {
+  border: 1px solid lightgrey;
+  flex-grow: 1;
+  height: 4.76%;
+  width: 4.76%;
+}
+
+.grid div.pacman {
+  background-image: url('../images/patrick.gif');
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+}
+
+.blue{
+  background-color: rgb(82, 82, 255);
+}
+
+.grid_points{
+  background-image: url('../images/burger.jpg');
+  background-size: cover;
+  /* background-color: yellow;
+  border-radius: 10px; */
+}
+
+#values_box{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+#points_box{
+  width: 150px;
+  height: 50px;
+  background-color: tomato;
+}
+
+#hs_box{
+  width: 150px;
+  height: 50px;
+  background-color: purple;
+}
+
+#lives_box{
+  width: 100px;
+  height: 100px;
+  background-color: green;
+}
+
+.blinky{
+  background-image: url('../images/blinky.png');
+  background-size: cover;
+}
+
+.pinky{
+  background-image: url('../images/pinky.png');
+  background-size: cover;
+}
+
+.inky{
+  background-image: url('../images/inky.png');
+  background-size: cover;
+}
+
+.clyde{
+  background-image: url('../images/clyde.jpg');
+  background-size: cover;
+}
