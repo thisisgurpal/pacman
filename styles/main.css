@@ -101,3 +101,28 @@ body {
   background-image: url('../images/clyde.jpg');
   background-size: cover;
 }
+
+.start_game{
+  height: 800px;
+  width: 500px;
+  position: absolute;
+  background-color: black;
+}
+
+#start_buttons_align{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.start_buttons{
+  width: 100px;
+}
+
+.none{
+  display: none;
+}
+

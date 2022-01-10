@@ -9,12 +9,14 @@ function init() {
   const hsValue = document.querySelector('#hs_value')
   const livesValue = document.querySelector('#lives_value')
   const livesBox = document.querySelector('#lives_box')
+  const startGamePage = document.querySelector('.start_game')
+  const startButton = document.querySelector('.start_buttons')
   const width = 21 // define the width
   let points = 0
   let lives = 3
-  let highScore = 0
+  let highScore = 51
   const cellCount = width * width // define the number of cells on the grid
-  const cells = [] // empty array to store our divs that we create
+  let cells = [] // empty array to store our divs that we create
   const pacmanClass = 'pacman' // define the class of the character
   const pacmanStartPosition = 346 // starting position of the pacman (refers to an index)
   let pacmanCurrentPosition = pacmanStartPosition // use let to track where the pacman currently is (refers to an index)
@@ -56,6 +58,7 @@ function init() {
     }
   }
 
+ 
 
   // * Make a grid
   function createGrid(pacmanStartPosition) {
@@ -78,8 +81,10 @@ function init() {
     }
     addPacman(pacmanStartPosition) // call the function to add the pacman at its starting position
     addGhosts()
-    ghosts.forEach(ghost => moveGhost(ghost))
+    
+    setTimeout(function(){ghosts.forEach(ghost => moveGhost(ghost))}, 10000)
   }
+
   
 
   // * Add pacman to grid
@@ -147,10 +152,15 @@ function init() {
   // * Points Eaten
   function pointsEaten(){
     if (cells[pacmanCurrentPosition].classList.value === 'grid_points'){
+      if (points === highScore){
+        highScore ++
+      }
       points ++
       cells[pacmanCurrentPosition].classList.remove('grid_points')
     }
     pointsValue.innerText = points
+    hsValue.innerText = highScore
+    
   }
 
   // * Game End
@@ -159,21 +169,33 @@ function init() {
     const cellsWithPoints = cells.filter(divs => divs.classList.value === 'grid_points').length
     if (cellsWithPoints === 0){
       console.log('YOU WIN, GAME ENED') 
-     document.removeEventListener('keydown', handleKeyDown)
-    } else if (cells[pacmanCurrentPosition].classList.contains('ghost') && lives > 0){
-      console.log('YOU LOSE A LIFE')
+      document.removeEventListener('keydown', handleKeyDown)
+    } 
+    
+    if (cells[pacmanCurrentPosition].classList.contains('ghost')){
       lives = lives - 1
-      ghosts.forEach(ghost => clearInterval(ghost.timerId))
-      setTimeout(function(){alert('Game Over!')}, 500)
-      removeGhosts()
-      removePacman(pacmanCurrentPosition)
-      addPacman(pacmanStartPosition) // call the function to add the pacman at its starting position
-      pacmanCurrentPosition = pacmanStartPosition
+      livesValue.innerText = lives
+      console.log('YOU LOSE A LIFE') 
+      setTimeout(function(){alert('life lost!')}, 500)
+      resetCharacters()
       
-      addGhosts()
-      ghosts.forEach(ghost => moveGhost(ghost))
-    }
+    } 
 
+    if (lives < 0){
+      returnToStart()
+    }
+  }
+
+  // * reset characters
+  function resetCharacters(){
+    ghosts.forEach(ghost => clearInterval(ghost.timerId))
+    removeGhosts()
+    removePacman(pacmanCurrentPosition)
+    addPacman(pacmanStartPosition) // call the function to add the pacman at its starting position
+    pacmanCurrentPosition = pacmanStartPosition
+      
+    addGhosts()
+    ghosts.forEach(ghost => moveGhost(ghost))
   }
 
   // * Move Pacman
@@ -213,10 +235,38 @@ function init() {
 
   }
 
-  // * Event listeners
-  document.addEventListener('keydown', handleKeyDown) // listening for key press
+  // * clear grid
+  function clearGrid(){
+    points = 0
+    lives = 3
+    cells = []
+    grid.innerHTML = ''
+  }
+
+  // * return to Start Game page
+  function returnToStart(){
+    startGamePage.classList.add('start_game')
+    startButton.classList.remove('none')
+
+  }
+
+  // * Start game
+  function startGame(){
+    clearGrid()
+    startGamePage.classList.remove('start_game')
+    startButton.classList.add('none')
+    document.addEventListener('keydown', handleKeyDown)
+    createGrid(pacmanStartPosition)
+    resetCharacters()  
+    
+  }
   
-  createGrid(pacmanStartPosition) // pass function the starting position of the pacman
+
+  // * Event listeners
+  // document.addEventListener('keydown', handleKeyDown) // listening for key press
+  startButton.addEventListener('click', startGame)
+
+  // createGrid(pacmanStartPosition) // pass function the starting position of the pacman
   // console.log(cells[45].classList.value === 'blue')
 
   
