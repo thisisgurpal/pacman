@@ -9,6 +9,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-family: monospace;
 }
 
 
@@ -31,17 +32,19 @@ body {
   justify-content: center;
   height: 500px;
   width: 500px;
+  margin-top: 0px;
+  color: white;
 }
 
 .grid div {
-  border: 1px solid lightgrey;
+  /* border: 1px solid lightgrey; */
   flex-grow: 1;
   height: 4.76%;
   width: 4.76%;
 }
 
 .grid div.pacman {
-  background-image: url('../images/patrick.gif');
+  background-image: url('../images/pac_create.gif');
   background-repeat: no-repeat;
   background-size: contain;
   cursor: pointer;
@@ -58,28 +61,61 @@ body {
   border-radius: 10px; */
 }
 
+.milkshake{
+  background-image: url('../images/milkshake.jpg');
+  background-size: cover;
+  /* background-color: yellow;
+  border-radius: 10px; */
+}
+
+.scared_ghost{
+  background-image: url('../images/scared_ghost.jpg');
+  background-size: cover;
+  /* background-color: yellow;
+  border-radius: 10px; */
+}
+
 #values_box{
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 10px;
+
 }
 #points_box{
-  width: 150px;
+  width: 200px;
   height: 50px;
-  background-color: tomato;
+  margin-left: 10px;
+  border-radius: 4px ;
+  border: 2px solid white;
+  padding: 10px;
 }
 
 #hs_box{
-  width: 150px;
+  width: 200px;
   height: 50px;
-  background-color: purple;
+  margin-right: 10px;
+  border-radius: 4px ;
+  border: 2px solid white;
+  padding: 10px;
 }
 
 #lives_box{
-  width: 100px;
-  height: 100px;
-  background-color: green;
+  width: 200px;
+  height: 50px;
+  margin-left: 10px;
+  border-radius: 4px ;
+  border: 2px solid white;
+  padding: 10px;
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .blinky{
@@ -144,5 +180,27 @@ body {
 
 .none{
   display: none;
+}
+
+.lose_life{
+  height: 800px;
+  width: 500px;
+  position: absolute;
+  background-color: rgb(0, 0, 0, 0.5);
+}
+
+.lose_pic_align{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.lose_pic{
+  width: 400px;
+  height: 400px;
+  background-image: url('../images/you_lose.gif');
+  background-size: cover;
 }
 
