@@ -9,12 +9,15 @@
   <body>
     <div class='start_game'>
       <div id='start_buttons_align'>
-        <div class='start_img pacman'></div>
-      <button class='start_buttons' id='start'>START GAME</button>
+        <div class='start_title'></div>
+        <div class='start_grid'></div>
+      <h1 class='pulse start'>CLICK PACMAN TO START...</h1>
     </div>
     </div>
     <div class='character_game none'>
+      
       <div id='character_buttons_align'>
+        <h1 class='pulse character_title'>CHOOSE CHARACTER</h1>
         <button class='character_buttons' id='pacman1'>PACMAN 1</button>
       <button class='character_buttons' id='pacman2'>PACMAN 2</button>
       <button class='character_buttons' id='pacman3'>PACMAN 3</button>
@@ -33,6 +36,7 @@
     </div>
     </div>
     <div class="grid-wrapper">
+      <div class='level'>LEVEL: <span id='level_value'></span></div>
       <div id='values_box'>
       <div id='points_box'>
         POINTS: <span id='points_value'></span>
