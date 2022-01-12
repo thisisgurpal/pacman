@@ -1,25 +1,19 @@
 
 function init() {
 
-  // * Variables
+  //************************************************************************************* */
+  //*Elements
+
   const grid = document.querySelector('.grid') // get the grid element
-  const pointsBox = document.querySelector('#points_box')
   const pointsValue = document.querySelector('#points_value')
-  const hsBox = document.querySelector('#hs_box')
   const hsValue = document.querySelector('#hs_value')
   const livesValue = document.querySelector('#lives_value')
-  const livesBox = document.querySelector('#lives_box')
   const startGamePage = document.querySelector('.start_game')
-  const startButtons = document.querySelectorAll('.start_buttons')
-  const startText = document.querySelector('.start')
   const loseLife = document.querySelector('.lose_life')
-  const losePic = document.querySelector('.lose_pic')
   const menuGamePage = document.querySelector('.menu_game')
   const menuButton = document.querySelector('.menu')
-  const menuButtons = document.querySelectorAll('.menu_buttons')
   const characterButtons = document.querySelectorAll('.character_buttons')
-  const levelBox = document.querySelector('.level')
-  let levelValue = document.querySelector('#level_value')
+  const levelValue = document.querySelector('#level_value')
   const characterPage = document.querySelector('.character_game')
   const resumeButton = document.querySelector('#resume')
   const quitButton = document.querySelector('#quit')
@@ -34,8 +28,9 @@ function init() {
   let level = 1
   const cellCount = width * width // define the number of cells on the grid
   let cells = [] // empty array to store our divs that we create
-  let cells2 = []
-  const pacmanClass = 'pacman' // define the class of the character
+  const cells2 = []
+  let pacmanClass = 'pacman' // define the class of the character
+  const pacmanStartClass = 'pacman_start' // define the class of the character
   let pacmanStartPosition = 0
   let pacmanCurrentPosition = pacmanStartPosition
   let blocksNoPoints = []
@@ -45,164 +40,163 @@ function init() {
   let milkshake = 0
   let counterTimer
   let timerCount = 3
-  let pacmanStartInterval
   let pacmanStartMoveCount = 0
   let key
   let pacmanStartButtons
+  let ScaredEnding
+  let pacmanSpeed = 250
 
-  // * Make a grid
+  //************************************************************************************* */
+  //*Functions
+
+  // * make a grid for the game
   function createGrid(pacmanStartPosition) {
-    for (let i = 0; i < cellCount; i++) { // for loop to run for every cell, in this case we want 100 cells
+
+    for (let i = 0; i < cellCount; i++) { // for loop to run for every cell
       const cell = document.createElement('div') // create the div
       //cell.innerText = i // inner text of the div to be its index
-      cell.setAttribute('id', i)
+      cell.setAttribute('id', i) // add id attribute
       grid.appendChild(cell) // make the cell a child of the grid element we grabbed above
-      pointsValue.innerText = points
-      hsValue.innerText = highScore
-      livesValue.innerText = lives
-      levelValue.innerHTML = level
-      if (walls.indexOf(i) !== -1){
+      pointsValue.innerText = points // add points value to html
+      hsValue.innerText = highScore // add high score value to html
+      livesValue.innerText = lives // add lives value to html
+      levelValue.innerHTML = level // add level value to html
+      if (walls.indexOf(i) !== -1){ // if i in walls array give it a class for blue wall
         cell.classList.add('blue')
-      } else if (blocksNoPoints.indexOf(i) === -1){
+      } else if (blocksNoPoints.indexOf(i) === -1){ // else if i is not in blocksNoPoints array, add points by giving class
         cell.classList.add('grid_points')
-      }  else if (specialPoints.indexOf(i) !== -1){
+      }  else if (specialPoints.indexOf(i) !== -1){ // else if i is in array specialPoints give class for special point
         cell.classList.add('milkshake')
       }  
-      
-
+    
       cells.push(cell) // add the newly created div into our empty array
-      
+
     }
-  
 
     addPacman(pacmanStartPosition) // call the function to add the pacman at its starting position
-    addGhostsStart()
-    
-    ghosts.forEach(ghost => moveGhost(ghost))
+    addGhostsStart() // call the function to add ghosts to starting position
+
   }
 
-  // * Make a grid
+  // * make a grid for start page
   function createStartGrid(startPagePacman) {
-    const widthStart = 8
-    const cellCount2 = widthStart * widthStart
-    // starting position of the pacman (refers to an index)
- // use let to track where the pacman currently is (refers to an index)
-
-    for (let i = 0; i < cellCount2; i++) { // for loop to run for every cell, in this case we want 100 cells
+    const widthStart = 10 // width of grid
+    const cellCount2 = widthStart * widthStart // total cell counts of grid
+    for (let i = 0; i < cellCount2; i++) { // for loop to run for every cell
       const cell = document.createElement('button') // create the div
-      //cell.innerText = i // inner text of the div to be its index
-      cell.classList.add('pacman_start_buttons')
-      startGrid.appendChild(cell)
+      cell.classList.add('pacman_start_buttons') // give each cell a class 
+      startGrid.appendChild(cell) // append cell to div
       cells2.push(cell) // add the newly created div into our empty array
       
     }
-    cells2[startPagePacman].classList.add(pacmanClass)
+    cells2[startPagePacman].classList.add(pacmanStartClass) // add pacman at starting point
 
-    const directionsStart = [-1, 1, widthStart, -widthStart]
-    let directionStart = directionsStart[Math.floor(Math.random() * directionsStart.length)]
+    const directionsStart = [-1, 1, widthStart, -widthStart] // array for direction of start page pacman
+    let directionStart = directionsStart[Math.floor(Math.random() * directionsStart.length)] // choose random direction
 
-    pacmanStartInterval = setInterval(function(){
-      pacmanStartMoveCount++
-      if (pacmanStartMoveCount > 3){
-        pacmanStartMoveCount = 0
-        directionStart = directionsStart[Math.floor(Math.random() * directionsStart.length)]
+    setInterval(function(){ // set interval for start page pacman to move around
+      pacmanStartMoveCount++ // add 1 to pacman move count
+      if (pacmanStartMoveCount > 4){ // once pacman moved 3 from interval choose a new random direction
+        pacmanStartMoveCount = 0 // restart pacman moved count
+        directionStart = directionsStart[Math.floor(Math.random() * directionsStart.length)] //choose new random direction
       }
-      cells2[startPagePacman].classList.remove('pacman')
+      cells2[startPagePacman].classList.remove(pacmanStartClass) // remove start page pacman from current index
 
-      if (directionStart === -1 && (startPagePacman % widthStart !== 0)){ // if the right arrow is pressed and the cat is not on the right edge
-        startPagePacman += directionStart // redefine cat position index to be previous position plus 1
-      } else if (directionStart === 1 && (startPagePacman % widthStart !== widthStart - 1)) { // if the left arrow is pressed and the cat is not on the left edge
-        startPagePacman += directionStart// redefine cat position index to be previous position minus 1
-      } else if (directionStart === -widthStart && (startPagePacman >= widthStart)) { // if the up arrow is pressed and the cat is not on the top row
-        startPagePacman += directionStart // redefine cat position index to be previous position minus width
-      } else if (directionStart === widthStart && ((startPagePacman + widthStart) <= cellCount2 - 1)) { // if the down arrow is pressed and the cat is not on the bottom row
-        startPagePacman += directionStart // redefine cat position index to be previous position plus width
+      // create logic for start page pacman to move in a direction but to not move outside grid
+      if (directionStart === -1 && (startPagePacman % widthStart !== 0)){ 
+        startPagePacman += directionStart
+      } else if (directionStart === 1 && (startPagePacman % widthStart !== widthStart - 1)) { 
+        startPagePacman += directionStart
+      } else if (directionStart === -widthStart && (startPagePacman >= widthStart)) { 
+        startPagePacman += directionStart 
+      } else if (directionStart === widthStart && ((startPagePacman + widthStart) <= cellCount2 - 1)) { 
+        startPagePacman += directionStart 
       } else directionStart = directionsStart[Math.floor(Math.random() * directionsStart.length)]
       
-      cells2[startPagePacman].classList.add('pacman')
+      cells2[startPagePacman].classList.add(pacmanStartClass) // add pacman to new direction
 
-    }, 800)
+    }, 800) // every 8 seconds
 
-    pacmanStartButtons = document.querySelectorAll('.pacman_start_buttons')
-    // call the function to add the pacman at its starting position
+    pacmanStartButtons = document.querySelectorAll('.pacman_start_buttons') // select all of the start page grid buttons
+
   }
   
   
-  // * Add pacman to grid
-  function addPacman(position) { // takes argument so function is reusable
-    cells[position].classList.add(pacmanClass) // use position as index to pick the corresponding div from the array of cells and add the class of pacman
+  // * add pacman to grid
+  function addPacman(position) {
+    cells[position].classList.add(pacmanClass) // add pacman to given positon
   }
 
-  // * Remove pacman from the grid
+  // * remove pacman from the grid
   function removePacman(position) {
-    cells[position].classList.remove(pacmanClass)
+    cells[position].classList.remove(pacmanClass) // remove pacman from given position
   }
 
   // * create ghost template
-  class Ghost {
-    constructor(className, startIndex, speed){
-      this.className = className
-      this.startIndex = startIndex
-      this.speed = speed
-      this.currentIndex = startIndex
-      this.timerId = NaN
-      this.isScared = false
-      this.isScaredEnding = false
-      this.moveCount = 0
+  class Ghost { // create class for multiple ghosts
+    constructor(className, startIndex, speed){ // constructor for ghost class name, starting position and speed
+      this.className = className // class name
+      this.startIndex = startIndex // starting position
+      this.speed = speed // speed to move
+      this.currentIndex = startIndex // current index
+      this.timerId = NaN // timerId for interval of ghosts
+      this.isScared = false // is ghost scared
+      this.isScaredEnding = false // is ghost scared about to end
+      this.moveCount = 0 // count number of ghost moves
     }
   }
 
-  const ghosts = [
+  const ghosts = [ // add ghosts
     new Ghost('blinky', 218, 250),
     new Ghost('pinky', 219, 250),
     new Ghost('inky', 220, 250),
     new Ghost('clyde', 221, 250)
   ]
 
+  // * add ghosts to grid
   function addGhostsStart(){
-    
-    ghosts.forEach(ghost => {
-      ghost.currentIndex = ghost.startIndex
-      cells[ghost.startIndex].classList.add(ghost.className)
-      cells[ghost.startIndex].classList.add('ghost')
+    ghosts.forEach(ghost => { // for each of the ghosts
+      ghost.currentIndex = ghost.startIndex // make there current index the starting point of ghosts
+      cells[ghost.startIndex].classList.add(ghost.className) // at this starting position add ghost class name
+      cells[ghost.startIndex].classList.add('ghost') // at this starting point add class ghost
     })
   }
 
+  // * remove ghost from grid
   function removeGhosts(){
-    
-    ghosts.forEach(ghost => {
-      cells[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared_ghost', 'scared_ghost_end')
+    ghosts.forEach(ghost => { // for each ghost
+      cells[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared_ghost', 'scared_ghost_end') // remove all ghost classes possible
     })
   }
 
+  // * move ghosts around grid
+  function moveGhost(ghost){ 
+    const directions = [-1, 1, width, -width] // create array for direction possibilities
+    let direction = directions[Math.floor(Math.random() * directions.length)] // pick random direction
 
-  function moveGhost(ghost){
-    const directions = [-1, 1, width, -width]
-    let direction = directions[Math.floor(Math.random() * directions.length)]
-
-    ghost.timerId = setInterval(function(){
-      ghost.moveCount++
-      if (ghost.moveCount > 8){
-        ghost.moveCount = 0
-        direction = directions[Math.floor(Math.random() * directions.length)]
+    ghost.timerId = setInterval(function(){ // create interval for ghost
+      ghost.moveCount++ // add 1 to ghost move count
+      if (ghost.moveCount > 7){ // when ghost has loop through 7 moves get a new random direction (prevents the ghost moving the same way all the time) 
+        ghost.moveCount = 0 // reset the move count
+        direction = directions[Math.floor(Math.random() * directions.length)] // give a new random direction
       }
-      if (ghost.currentIndex === 210 && direction === -1){
-        cells[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared_ghost', 'scared_ghost_end')
-        ghost.currentIndex = 230
-        cells[ghost.currentIndex].classList.add(ghost.className, 'ghost')
-      } else if (ghost.currentIndex === 230 && direction === 1){
+      if (ghost.currentIndex === 210 && direction === -1){ // if ghost in middle left and direction is left
+        cells[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared_ghost', 'scared_ghost_end') // remove ghost
+        ghost.currentIndex = 230 // create new index to middle right
+        cells[ghost.currentIndex].classList.add(ghost.className, 'ghost') // add ghost to middle right
+      } else if (ghost.currentIndex === 230 && direction === 1){ // opposit of above
         cells[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared_ghost', 'scared_ghost_end')
         ghost.currentIndex = 210
         cells[ghost.currentIndex].classList.add(ghost.className, 'ghost')
-      } else if (!cells[ghost.currentIndex + direction].classList.contains('blue') && !cells[ghost.currentIndex + direction].classList.contains('ghost')){
-        cells[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared_ghost', 'scared_ghost_end')
-        ghost.currentIndex += direction
-        cells[ghost.currentIndex].classList.add(ghost.className, 'ghost')
-      } else direction = directions[Math.floor(Math.random() * directions.length)]
+      } else if (!cells[ghost.currentIndex + direction].classList.contains('blue') && !cells[ghost.currentIndex + direction].classList.contains('ghost')){ // if ghost plus direction is not a wall or another ghost
+        cells[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared_ghost', 'scared_ghost_end') // remove ghost
+        ghost.currentIndex += direction // calculate new index
+        cells[ghost.currentIndex].classList.add(ghost.className, 'ghost') // add ghost to new index
+      } else direction = directions[Math.floor(Math.random() * directions.length)] // else choose another random direction
 
-      scaredGhostEaten(ghost)
-      levelUp()
-      lifeLost()
+      scaredGhostEaten(ghost) // add logic if scared ghost moves into pacman it gets reset
+      // levelUp() // add logic 
+      lifeLost() // adds logic so if ghost moves into pacman a life gets lost
       
     }, ghost.speed)
 
@@ -212,51 +206,52 @@ function init() {
 
   }
   // * scared ghost eaten
-  function scaredGhostEaten(ghost){
-    if (ghost.isScared){
-      cells[ghost.currentIndex].classList.remove(ghost.className)
-      cells[ghost.currentIndex].classList.add('scared_ghost')
+  function scaredGhostEaten(ghost){ 
+    if (ghost.isScared){ // if ghost is currently scared
+      cells[ghost.currentIndex].classList.remove(ghost.className) // remove current ghost class name
+      cells[ghost.currentIndex].classList.add('scared_ghost') // add scared ghost class which changes it's colour
     }
-    if (ghost.isScaredEnding){
-      cells[ghost.currentIndex].classList.remove(ghost.className)
-      cells[ghost.currentIndex].classList.remove('scared_ghost')
-      cells[ghost.currentIndex].classList.add('scared_ghost_end')
+    if (ghost.isScaredEnding){ // if scared ghost is about to end
+      cells[ghost.currentIndex].classList.remove(ghost.className) // REMOVE LINE
+      cells[ghost.currentIndex].classList.remove('scared_ghost') // remove current class scared ghost
+      cells[ghost.currentIndex].classList.add('scared_ghost_end') // add class scared ghost ending to change colour
     }
-    if ((ghost.isScared || ghost.isScaredEnding) && cells[ghost.currentIndex].classList.contains('pacman')){
-      cells[ghost.currentIndex].classList.remove('ghost', 'scared_ghost', 'scared_ghost_end')
-      ghost.currentIndex = ghost.startIndex
-      ghost.isScared = false
-      ghost.isScaredEnding = false
-      cells[ghost.currentIndex].classList.add(ghost.className, 'ghost')
-      if (points === highScore){
-        highScore = highScore + 10
+    if ((ghost.isScared || ghost.isScaredEnding) && cells[ghost.currentIndex].classList.contains('pacman')){ // if ghost is scared or scared ending and is in same position as pacman
+      cells[ghost.currentIndex].classList.remove('ghost', 'scared_ghost', 'scared_ghost_end') // remove ghost from current position
+      ghost.currentIndex = ghost.startIndex // give current index the starting position of ghost
+      ghost.isScared = false // make ghost un scared
+      ghost.isScaredEnding = false // make ghost un scared ending
+      cells[ghost.currentIndex].classList.add(ghost.className, 'ghost') // add ghost to starting postion 
+      if (points === highScore){ // if points is the same as high score and pacman eats scared ghost
+        highScore = highScore + 10 // increase high score
       }
-      points = points + 10
-      pointsValue.innerText = points
-      hsValue.innerText = highScore
+      points = points + 10 // increase points
+      // pointsValue.innerText = points // update html value
+      // hsValue.innerText = highScore // update html value
+      pointsEaten() 
     }
-    pointsEaten()
+    // pointsEaten() // add logic 
   }
 
 
-  // * Points Eaten
+  // * points eaten logic
   function pointsEaten(){
-    if (cells[pacmanCurrentPosition].classList.contains('grid_points')){
-      if (points === highScore){
-        highScore ++
+    if (cells[pacmanCurrentPosition].classList.contains('grid_points')){ // if pacman in same cell with class grid points
+      if (points === highScore){ // if points equals high score, update high score with points
+        highScore ++ // increase value
       }
-      points ++
-      cells[pacmanCurrentPosition].classList.remove('grid_points')
+      points ++ // increase value
+      cells[pacmanCurrentPosition].classList.remove('grid_points') // remove point from cell pacman is in
     }
-    pointsValue.innerText = points
-    hsValue.innerText = highScore
+    pointsValue.innerText = points // update html
+    hsValue.innerText = highScore // update html
     
   }
 
-  let count = 0
-  let counterTimer2
+  let count = 0 // count to review logic
+  let counterTimer2 // timer to review logic
 
-  function timer(){
+  function timer(){ // timer counting to 10
     counterTimer2 = setInterval(() => {
       count++
       if (count > 10){
@@ -265,184 +260,161 @@ function init() {
     }, 1000)
   }
 
-  let ScaredEnding
-  // * eat Special Points
+  // * eat special points
   function specialPointsEaten(){
-    if (cells[pacmanCurrentPosition].classList.value === 'milkshake'){
-      milkshake++
-      if (milkshake > 1){
-        clearTimeout(unScareTimeout)
-        clearInterval(counterTimer2)
-        clearTimeout(ScaredEnding)
-        unScareGhost()
-        count = 0
+    if (cells[pacmanCurrentPosition].classList.value === 'milkshake'){ // when pacman in same cell as special point
+      milkshake++ // count how many special points eaten
+      if (milkshake > 1){ // if special points eaten greater than 1 reset scared ghosts to normal before starting intervals again
+        clearTimeout(unScareTimeout) // clear timer to un scare ghosts
+        clearInterval(counterTimer2) // reset counter logic to 10
+        clearTimeout(ScaredEnding) // clear timer to un scare 
+        unScareGhost() // unscare ghosts
+        count = 0 // reset count of timer
       }
       
       
-      if (points === highScore){
-        highScore = highScore + 10
+      if (points === highScore){ // if points equal high score then update both
+        highScore = highScore + 10 // increase value
       }
-      points = points + 10
-      cells[pacmanCurrentPosition].classList.remove('milkshake')
-      ghosts.forEach(ghost => ghost.isScared = true)
+      points = points + 10 // increase value
+      cells[pacmanCurrentPosition].classList.remove('milkshake') // remove special point once eaten
+      ghosts.forEach(ghost => ghost.isScared = true) // make ghosts scared once eaten special point
       
-      ScaredEnding = setTimeout(function(){
+      ScaredEnding = setTimeout(function(){ // timer so that when ghost is scared after 6 seconds it turns to scared ending
         ghosts.forEach(ghost => {
-          if (ghost.isScared === true){
-            ghost.isScared = false
-            ghost.isScaredEnding = true
+          if (ghost.isScared === true){ // if ghost scared
+            ghost.isScared = false // make ghost un scared
+            ghost.isScaredEnding = true // make ghost scared ending
           }
         })
       }, 6000)
-      unScareTimeout = setTimeout(unScareGhost, 10000)
-      timer()
+      unScareTimeout = setTimeout(unScareGhost, 10000) // un scare ghosts after 10 seconds
+      timer() // counter timer of scared ghosts
     }
-    pointsValue.innerText = points
-    hsValue.innerText = highScore
-
+    pointsValue.innerText = points // update html
+    hsValue.innerText = highScore // update html
   }
       
  
 
-  //* make ghosts stop being scared
+  //* make ghosts un scared
   function unScareGhost(){
-    ghosts.forEach(ghost => ghost.isScaredEnding = false)
-    ghosts.forEach(ghost => ghost.isScared = false)
+    ghosts.forEach(ghost => ghost.isScaredEnding = false) // un scare ending each ghost
+    ghosts.forEach(ghost => ghost.isScared = false) // unn scare each ghost
   }
 
-
-  //* reset points
-  let pacmanSpeed = 250
-
-  // * Game End
-
+  // * next level function
   function levelUp(){
-    const cellsWithPoints = cells.filter(divs => divs.classList.contains('grid_points')).length
-    if (cellsWithPoints === 0){ 
+    const cellsWithPoints = cells.filter(divs => divs.classList.contains('grid_points')).length // counts number of points left on grid
+    if (cellsWithPoints === 0){ // if all points gone
+      document.removeEventListener('keydown', handleKeyDown) // remove key event listener
+      ghosts.forEach(ghost => ghost.speed -= 50) // increase speed of ghost for next level
+      pacmanSpeed -= 50 // increase speed of pacman for next level
+      resetCharacters() // reset all character to normal starting positions
+      level = level + 1 // increase counts of level
+      milkshake = 0 // reset number of special points eaten
+      threeTwoOneBox.classList.remove('none') // make next leve page visible
+      levelValue.innerText = `${level}` // update level value
+      threeTwoOneValue.innerText = `LEVEL ${level}` // show level on next level page
+      threeTwoOneValue.style.fontSize = '70px' // update font size
       
-      document.removeEventListener('keydown', handleKeyDown)
-      
-      ghosts.forEach(ghost => ghost.speed -= 50)
-      pacmanSpeed -= 50
-      resetCharacters()
-      level = level + 1
-      milkshake = 0
-      threeTwoOneBox.classList.remove('none')
-      levelValue.innerText = `${level}`
-      threeTwoOneValue.innerText = `LEVEL ${level}`
-      threeTwoOneValue.style.fontSize = '70px'   
-      
-      for (let i = 0; i < cellCount; i++) { // for loop to run for every cell, in this case we want 100 cells
-        if (specialPoints.indexOf(i) === -1 && blocksNoPoints.indexOf(i) === -1 && walls.indexOf(i) === -1){
-          cells[i].classList.add('grid_points')
-        }  else if (specialPoints.indexOf(i) !== -1){
-          cells[i].classList.add('milkshake')
+      for (let i = 0; i < cellCount; i++) { // for loop to run for every cell
+        if (specialPoints.indexOf(i) === -1 && blocksNoPoints.indexOf(i) === -1 && walls.indexOf(i) === -1){ // select grid cells where points eaten
+          cells[i].classList.add('grid_points') // add points again for next level
+        }  else if (specialPoints.indexOf(i) !== -1){ // select grid cells of special points
+          cells[i].classList.add('milkshake') // add special points for next level
         }  
       }
       
-      setTimeout(()=> {
-        threeTwoOneValue.style.fontSize = '200px'
-        threeTwoOneBox.classList.add('none')
-        document.addEventListener('keydown', handleKeyDown)
-        ghosts.forEach(ghost => moveGhost(ghost)) 
+      setTimeout(()=> { // interval to remove next level page and start next level
+        threeTwoOneValue.style.fontSize = '200px' // reset font size
+        threeTwoOneBox.classList.add('none') // remove level up page
+        document.addEventListener('keydown', handleKeyDown) // add event listener for keys
+        ghosts.forEach(ghost => moveGhost(ghost)) // move ghost
       }, 3000)
 
     } 
   }
 
-  // * lose life
+  // * lose life logic
   function lifeLost(){
-    if (cells[pacmanCurrentPosition].classList.contains('ghost') && !cells[pacmanCurrentPosition].classList.contains('scared_ghost') && !cells[pacmanCurrentPosition].classList.contains('scared_ghost_end')){
-      lives = lives - 1
-      livesValue.innerText = lives
-      if (lives > 0){
-        document.removeEventListener('keydown', handleKeyDown)
-        clearInterval(pacmanMove)
-        console.log('YOU LOSE A LIFE')
-        loseLife.classList.remove('none') 
+    if (cells[pacmanCurrentPosition].classList.contains('ghost') && !cells[pacmanCurrentPosition].classList.contains('scared_ghost') && !cells[pacmanCurrentPosition].classList.contains('scared_ghost_end')){ // if cell of pacman has a ghost which is not scared
+      lives = lives - 1 // lose a life
+      livesValue.innerText = lives // update html
+      if (lives > 0){ // if still have lives
+        document.removeEventListener('keydown', handleKeyDown) // remove key event listener
+        // clearInterval(pacmanMove) // clear pacman interval
         resetCharacters()
-        setTimeout(function(){
-          loseLife.classList.add('none') 
-          ghosts.forEach(ghost => moveGhost(ghost))
-          document.addEventListener('keydown', handleKeyDown)
+        console.log('YOU LOSE A LIFE') // log
+        loseLife.classList.remove('none') // lose life page make visible
+        // resetCharacters() // reset all characters to start
+        setTimeout(function(){ // timer function
+          loseLife.classList.add('none') // remove lose life page
+          ghosts.forEach(ghost => moveGhost(ghost)) // move ghosts 
+          document.addEventListener('keydown', handleKeyDown) // add key event listener
         }, 4000)
-      } else if (lives ===0){
-        returnToStart()
-      }
-        
+      } else if (lives === 0){ // if all lives gone
+        returnToStart() // return to start page
+      }    
     }
   }
 
   // * reset characters
   function resetCharacters(){
-    ghosts.forEach(ghost => clearInterval(ghost.timerId))
-    clearInterval(pacmanMove)
-    unScareGhost()
-    removeGhosts()
-    removePacman(pacmanCurrentPosition)
+    ghosts.forEach(ghost => clearInterval(ghost.timerId)) // clear ghost moving interval
+    clearInterval(pacmanMove) // clear pacman moving timer
+    unScareGhost() // un scare ghosts
+    removeGhosts() // remove ghost from current index
+    removePacman(pacmanCurrentPosition) // remove pacman from current index
     addPacman(pacmanStartPosition) // call the function to add the pacman at its starting position
-    pacmanCurrentPosition = pacmanStartPosition
-      
-    addGhostsStart()
+    pacmanCurrentPosition = pacmanStartPosition // reset pacman current position
+    addGhostsStart() // add ghost back to starting position
     
   }
  
-  // * Move Pacman
-
-
+  // * keys to move pacman
   function handleKeyDown(event) {
-    clearInterval(pacmanMove)
-    key = event.keyCode
-    // store the event.keyCode in a variable to save us repeatedly typing it out
+    clearInterval(pacmanMove) // clear interval when new key entered
+    key = event.keyCode // determine which key pressed
+    //key codes
     const left = 37
     const right = 39
     const up = 38
     const down = 40
     
-    // remove the pacman from its current position
-    // if (cells.filter(divs => divs.classList.value === 'grid_points').length !== 0){
-    pacmanMove = setInterval(() => {
-      ghosts.forEach(ghost => scaredGhostEaten(ghost))
-      removePacman(pacmanCurrentPosition)
-      if (key === right && pacmanCurrentPosition === (width * ((width - 1) / 2) + (width - 1))){
-        pacmanCurrentPosition = (width * ((width - 1) / 2))
-      } else if (key === right && cells[pacmanCurrentPosition + 1].classList.value !== 'blue'){ // if the right arrow is pressed and the pacman is not on the right edge
+    pacmanMove = setInterval(() => { // interval to move pacman after certain time
+      ghosts.forEach(ghost => scaredGhostEaten(ghost)) // if current position is a scared ghost logic
+      removePacman(pacmanCurrentPosition) // remove pacman from current position
+      if (key === right && pacmanCurrentPosition === (width * ((width - 1) / 2) + (width - 1))){ // if the right arrow at middle right
+        pacmanCurrentPosition = (width * ((width - 1) / 2)) // pacman position to middle left
+      } else if (key === right && cells[pacmanCurrentPosition + 1].classList.value !== 'blue'){ // if the right arrow is pressed and wall not right
         pacmanCurrentPosition++ // redefine pacman position index to be previous position plus 1
-      } else if (key === left && cells[pacmanCurrentPosition - 1].classList.value !== 'blue') { // if the left arrow is pressed and the pacman is not on the left edge
+      } else if (key === left && cells[pacmanCurrentPosition - 1].classList.value !== 'blue') { // if the left arrow is pressed and wall not left
         pacmanCurrentPosition-- // redefine pacman position index to be previous position minus 1
       } else if (key === left && pacmanCurrentPosition === (width * ((width - 1) / 2))){
         pacmanCurrentPosition = (width * ((width - 1) / 2) + (width - 1))
-      } else if (key === up && cells[pacmanCurrentPosition - width].classList.value !== 'blue') { // if the up arrow is pressed and the pacman is not on the top row
+      } else if (key === up && cells[pacmanCurrentPosition - width].classList.value !== 'blue') { // if the up arrow is pressed and wall not above
         pacmanCurrentPosition -= width // redefine pacman position index to be previous position minus width
-      } else if (key === down && cells[pacmanCurrentPosition + width].classList.value !== 'blue') { // if the down arrow is pressed and the pacman is not on the bottom row
+      } else if (key === down && cells[pacmanCurrentPosition + width].classList.value !== 'blue') { // if the down arrow is pressed and wall not below
         pacmanCurrentPosition += width // redefine pacman position index to be previous position plus width
       }
-    
-      pointsEaten()
-      specialPointsEaten()
-      addPacman(pacmanCurrentPosition) 
-      ghosts.forEach(ghost => scaredGhostEaten(ghost))
-      
-      levelUp()
-      lifeLost()
+      pointsEaten() // eat points whilst pacman moves
+      specialPointsEaten() // eat special points whilst pacman moves
+      addPacman(pacmanCurrentPosition) // add pacman to new position 
+      ghosts.forEach(ghost => scaredGhostEaten(ghost)) // if new position is a scared ghost logic
+      levelUp() // level up logic when all points eaten
+      lifeLost() // lose a life logic when collide with ghost
       
     }, pacmanSpeed)
-    
-    
-    
-    // add pacman to the new position that was defined in the if statement above
-
-    
-
   }
 
   
-  // * threeTwoOne
+  // * threeTwoOne function to count down game start
   function threeTwoOne(){
-    threeTwoOneBox.classList.remove('none')
-    threeTwoOneValue.innerText = '3'
-    counterTimer = setInterval(() => {
-      timerCount--
+    threeTwoOneBox.classList.remove('none') // make countdown page visible
+    threeTwoOneValue.innerText = '3' // add html
+    counterTimer = setInterval(() => { // interval every second to count down
+      timerCount-- // timer = timer - 1
       if (timerCount === 3){
         threeTwoOneValue.innerText = '3'
       } else if (timerCount === 2){
@@ -450,23 +422,25 @@ function init() {
       } else if (timerCount === 1){
         threeTwoOneValue.innerText = '1'
       } else {
-        threeTwoOneBox.classList.add('none')
-        clearInterval(counterTimer)
+        threeTwoOneBox.classList.add('none') // remove countdown page after 3 seconds
+        clearInterval(counterTimer) // clear interval countdown after 3 seconds
+        timerCount = 3 // reset timer
       }
     }, 1000)
   }
 
-
+  // * different characters and maps
   function chooseCharacter(event){
     if (event.target.id === 'pacman1'){
+      pacmanClass = 'patrick'
       pacmanStartPosition = 346 // starting position of the pacman (refers to an index)
       pacmanCurrentPosition = pacmanStartPosition // use let to track where the pacman currently is (refers to an index)
       blocksNoPoints = [346, 156, 177, 176, 175, 174, 195, 216, 237, 198, 199, 200,
         258, 279, 259, 260, 261, 262, 263, 264, 265,
         266, 287, 245, 215, 224, 225, 203, 182, 181,
-        180, 179, 158, 178, 218, 219, 220, 221, 222, 402, 24, 416, 38]
+        180, 179, 158, 178, 218, 219, 220, 221, 222, 402, 24, 416, 38] // cells that don't have points
        
-      specialPoints = [402, 24, 416, 38]
+      specialPoints = [402, 24, 416, 38] // cells that have special points
       walls = [44, 45, 65, 66, 47, 48, 49,
         50, 31, 52, 73, 68, 69, 70, 71, 107, 108,
         128, 129, 54, 55, 56, 57, 75, 76, 77, 78,
@@ -485,8 +459,9 @@ function init() {
         330, 329, 328, 327, 304, 325, 364, 365, 385,
         386, 367, 388, 396, 395, 394, 393, 372, 369,
         370, 390, 391
-      ]
+      ] // cells with walls
 
+      // add border cells to walls array
       for (let i = 0; i < width; i++) {
         walls.push(i)
         walls.push(i + (Math.pow(width, 2) - width))
@@ -499,6 +474,7 @@ function init() {
           }
         }
       }
+      
     } else if (event.target.id === 'pacman2'){
       pacmanStartPosition = 346 // starting position of the pacman (refers to an index)
       pacmanCurrentPosition = pacmanStartPosition // use let to track where the pacman currently is (refers to an index)
@@ -539,6 +515,9 @@ function init() {
           }
         }
       }
+     
+
+
     } else if (event.target.id === 'pacman3'){
       pacmanStartPosition = 346 // starting position of the pacman (refers to an index)
       pacmanCurrentPosition = pacmanStartPosition // use let to track where the pacman currently is (refers to an index)
@@ -580,96 +559,81 @@ function init() {
         }
       }
     }
-    clearGrid()
-    characterPage.classList.add('none')
-    
-    createGrid(pacmanStartPosition)
-    resetCharacters() 
 
-    threeTwoOne()
-    setTimeout(()=> {
-      document.addEventListener('keydown', handleKeyDown)
-      ghosts.forEach(ghost => moveGhost(ghost)) 
+    clearGrid() // clear grid and reset orignal values
+    characterPage.classList.add('none') // remove character page
+    createGrid(pacmanStartPosition) // create grid
+    resetCharacters() // reset characters to starting positions
+    threeTwoOne() // countdown to game
+    setTimeout(()=> { // timer to move ghosts and enable keys 
+      document.addEventListener('keydown', handleKeyDown) // enable keys to move pacman
+      ghosts.forEach(ghost => moveGhost(ghost)) // move ghosts
     }, 3000)
     
     
   }
 
-
-
-  // * clear grid
+  // * clear grid and reset values
   function clearGrid(){
     points = 0
     lives = 3
     cells = []
-    grid.innerHTML = ''
-    timerCount = 3
+    grid.innerHTML = '' // remove grid
+    // timerCount = 3
     level = 1
-    ghosts.forEach(ghost => ghost.speed = 250)
-    pacmanSpeed = 250
-
+    ghosts.forEach(ghost => ghost.speed = 250) // reset ghosts speed
+    pacmanSpeed = 250 // reset pacman speed
   }
 
   // * return to Start Game page
   function returnToStart(){
-    clearInterval(pacmanMove)
-    ghosts.forEach(ghost => clearInterval(ghost.timerId))
-    ghosts.forEach(ghost => ghost.speed = 250)
-    pacmanSpeed = 250
-    startGamePage.classList.remove('none')
+    clearInterval(pacmanMove) // clear pacman interval moving
+    ghosts.forEach(ghost => clearInterval(ghost.timerId)) // clear ghost interval moving
+    // ghosts.forEach(ghost => ghost.speed = 250) //
+    // pacmanSpeed = 250
+    startGamePage.classList.remove('none') // make start page visible
   }
 
-  // * Start game
+  // * start game
   function startGame(event){
-
-    if (event.target.classList.contains(pacmanClass)){
-
-      startGamePage.classList.add('none')
-      characterPage.classList.remove('none')
+    if (event.target.classList.contains(pacmanStartClass)){ // if you click pacman on start page
+      startGamePage.classList.add('none') // remove start page
+      characterPage.classList.remove('none') // make character page visible
     }
   }
 
-
-
-  
-  
   // * menu game
   function menuGame(){
-    clearInterval(pacmanMove)
-    menuGamePage.classList.remove('none')
-    document.removeEventListener('keydown', handleKeyDown)
-    ghosts.forEach(ghost => clearInterval(ghost.timerId))
+    clearInterval(pacmanMove) // stop pac man 
+    menuGamePage.classList.remove('none') // add menu page
+    document.removeEventListener('keydown', handleKeyDown) // stop keys working
+    ghosts.forEach(ghost => clearInterval(ghost.timerId)) // stop ghost moving
   }
 
   // * resume game
-  function resumeGame(){
-    menuGamePage.classList.add('none')
-    document.addEventListener('keydown', handleKeyDown)
-    ghosts.forEach(ghost => moveGhost(ghost))
+  function resumeGame(){ 
+    menuGamePage.classList.add('none') // remove menu page
+    document.addEventListener('keydown', handleKeyDown) // enable keys to move pacman
+    ghosts.forEach(ghost => moveGhost(ghost)) // move ghosts again
   }
 
   // * quit game
   function quitGame(){
-
-    menuGamePage.classList.add('none')
-    clearInterval(pacmanMove)
-    returnToStart()
+    menuGamePage.classList.add('none') // remove menu page
+    // clearInterval(pacmanMove) // stop pac man 
+    returnToStart() // return to start page
   }
 
-  createStartGrid(0)
-  // * Event listeners
-  // document.addEventListener('keydown', handleKeyDown) // listening for key press
+  createStartGrid(0) // create start page on loading website
 
-  
-  menuButton.addEventListener('click', menuGame)
-  resumeButton.addEventListener('click', resumeGame)
-  quitButton.addEventListener('click', quitGame)
-  characterButtons.forEach(button => button.addEventListener('click', chooseCharacter))
-  pacmanStartButtons.forEach(button => button.addEventListener('click', startGame))
-  // createGrid(pacmanStartPosition) // pass function the starting position of the pacman
-  // console.log(cells[45].classList.value === 'blue')
+  //************************************************************************************* */
+  //*Events
 
-  
+  menuButton.addEventListener('click', menuGame) // menu button
+  resumeButton.addEventListener('click', resumeGame) // resume button
+  quitButton.addEventListener('click', quitGame) // quit button
+  characterButtons.forEach(button => button.addEventListener('click', chooseCharacter)) // choose character buttons
+  pacmanStartButtons.forEach(button => button.addEventListener('click', startGame)) // start page grid buttons 
  
 }
 
