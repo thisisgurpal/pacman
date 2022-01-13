@@ -9,7 +9,6 @@ function init() {
   const hsValue = document.querySelector('#hs_value')
   const livesValue = document.querySelector('#lives_value')
   const startGamePage = document.querySelector('.start_game')
-  const loseLife = document.querySelector('.lose_life')
   const menuGamePage = document.querySelector('.menu_game')
   const menuButton = document.querySelector('.menu')
   const characterButtons = document.querySelectorAll('.character_buttons')
@@ -20,17 +19,23 @@ function init() {
   const threeTwoOneBox = document.querySelector('.three_two_one')
   const threeTwoOneValue = document.querySelector('.three_two_one_value')
   const startGrid = document.querySelector('.start_grid')
+  const audio = document.querySelector('audio')
   const width = 21 // define the width
   let pacmanMove
   let points = 0
   let lives = 3
-  let highScore = 51
+  let highScore = 100
   let level = 1
   const cellCount = width * width // define the number of cells on the grid
   let cells = [] // empty array to store our divs that we create
   const cells2 = []
-  let pacmanClass = 'pacman' // define the class of the character
+  const pacmanClass = 'pacman' // define the class of the character
+  const pacmanClassRight = 'pacman_right' // define the class of the character
+  const pacmanClassLeft = 'pacman_left' // define the class of the character
+  const pacmanClassUp = 'pacman_up' // define the class of the character
+  const pacmanClassDown = 'pacman_down' // define the class of the character
   const pacmanStartClass = 'pacman_start' // define the class of the character
+  let pacmanDirection = pacmanClassRight
   let pacmanStartPosition = 0
   let pacmanCurrentPosition = pacmanStartPosition
   let blocksNoPoints = []
@@ -84,7 +89,8 @@ function init() {
     const cellCount2 = widthStart * widthStart // total cell counts of grid
     for (let i = 0; i < cellCount2; i++) { // for loop to run for every cell
       const cell = document.createElement('button') // create the div
-      cell.classList.add('pacman_start_buttons') // give each cell a class 
+      cell.classList.add('pacman_start_buttons') // give each cell a class
+      cell.setAttribute('id', i) 
       startGrid.appendChild(cell) // append cell to div
       cells2.push(cell) // add the newly created div into our empty array
       
@@ -125,11 +131,12 @@ function init() {
   // * add pacman to grid
   function addPacman(position) {
     cells[position].classList.add(pacmanClass) // add pacman to given positon
+    cells[position].classList.add(pacmanDirection) // add pacman with starting direction right
   }
 
   // * remove pacman from the grid
   function removePacman(position) {
-    cells[position].classList.remove(pacmanClass) // remove pacman from given position
+    cells[position].classList.remove(pacmanClass, pacmanClassRight, pacmanClassLeft, pacmanClassUp, pacmanClassDown) // remove pacman from given position
   }
 
   // * create ghost template
@@ -216,16 +223,31 @@ function init() {
       cells[ghost.currentIndex].classList.remove('scared_ghost') // remove current class scared ghost
       cells[ghost.currentIndex].classList.add('scared_ghost_end') // add class scared ghost ending to change colour
     }
-    if ((ghost.isScared || ghost.isScaredEnding) && cells[ghost.currentIndex].classList.contains('pacman')){ // if ghost is scared or scared ending and is in same position as pacman
+    if ((ghost.isScared || ghost.isScaredEnding) && cells[ghost.currentIndex].classList.contains(pacmanClass)){ // if ghost is scared or scared ending and is in same position as pacman
       cells[ghost.currentIndex].classList.remove('ghost', 'scared_ghost', 'scared_ghost_end') // remove ghost from current position
-      ghost.currentIndex = ghost.startIndex // give current index the starting position of ghost
-      ghost.isScared = false // make ghost un scared
-      ghost.isScaredEnding = false // make ghost un scared ending
-      cells[ghost.currentIndex].classList.add(ghost.className, 'ghost') // add ghost to starting postion 
-      if (points === highScore){ // if points is the same as high score and pacman eats scared ghost
-        highScore = highScore + 10 // increase high score
+      cells[ghost.currentIndex].classList.add('special_point') // remove ghost from current position
+      audio.src = '../audio/ghost_eat.wav'
+      audio.play()
+      clearInterval(pacmanMove) // stop pac man 
+      removePacman(ghost.currentIndex)
+      document.removeEventListener('keydown', handleKeyDown) // stop keys working
+      ghosts.forEach(ghost => clearInterval(ghost.timerId)) // stop ghost moving
+
+      setTimeout(() => {
+        cells[ghost.currentIndex].classList.remove('special_point') // remove ghost from current position
+        addPacman(ghost.currentIndex)
+        ghost.currentIndex = ghost.startIndex // give current index the starting position of ghost
+        ghost.isScared = false // make ghost un scared
+        ghost.isScaredEnding = false // make ghost un scared ending
+        cells[ghost.currentIndex].classList.add(ghost.className, 'ghost') // add ghost to starting postion 
+        document.addEventListener('keydown', handleKeyDown) // enable keys to move pacman
+        ghosts.forEach(ghost => moveGhost(ghost)) // move ghosts again
+      }, 2000)
+      
+      if (points + 100 > highScore){ // if points is the same as high score and pacman eats scared ghost
+        highScore = points + 100 // increase high score
       }
-      points = points + 10 // increase points
+      points = points + 100 // increase points
       // pointsValue.innerText = points // update html value
       // hsValue.innerText = highScore // update html value
       pointsEaten() 
@@ -237,10 +259,12 @@ function init() {
   // * points eaten logic
   function pointsEaten(){
     if (cells[pacmanCurrentPosition].classList.contains('grid_points')){ // if pacman in same cell with class grid points
+      // audio.src = '../audio/normal_point.wav'
+      // audio.play()
       if (points === highScore){ // if points equals high score, update high score with points
-        highScore ++ // increase value
+        highScore += 10 // increase value
       }
-      points ++ // increase value
+      points += 10 // increase value
       cells[pacmanCurrentPosition].classList.remove('grid_points') // remove point from cell pacman is in
     }
     pointsValue.innerText = points // update html
@@ -264,6 +288,8 @@ function init() {
   function specialPointsEaten(){
     if (cells[pacmanCurrentPosition].classList.value === 'milkshake'){ // when pacman in same cell as special point
       milkshake++ // count how many special points eaten
+      audio.src = '../audio/point.wav'
+      audio.play()
       if (milkshake > 1){ // if special points eaten greater than 1 reset scared ghosts to normal before starting intervals again
         clearTimeout(unScareTimeout) // clear timer to un scare ghosts
         clearInterval(counterTimer2) // reset counter logic to 10
@@ -273,10 +299,10 @@ function init() {
       }
       
       
-      if (points === highScore){ // if points equal high score then update both
-        highScore = highScore + 10 // increase value
+      if (points + 100 > highScore){ // if points equal high score then update both
+        highScore = points + 100 // increase value
       }
-      points = points + 10 // increase value
+      points = points + 100 // increase value
       cells[pacmanCurrentPosition].classList.remove('milkshake') // remove special point once eaten
       ghosts.forEach(ghost => ghost.isScared = true) // make ghosts scared once eaten special point
       
@@ -307,6 +333,8 @@ function init() {
   function levelUp(){
     const cellsWithPoints = cells.filter(divs => divs.classList.contains('grid_points')).length // counts number of points left on grid
     if (cellsWithPoints === 0){ // if all points gone
+      audio.src = '../audio/level_up.wav'
+      audio.play()
       document.removeEventListener('keydown', handleKeyDown) // remove key event listener
       ghosts.forEach(ghost => ghost.speed -= 50) // increase speed of ghost for next level
       pacmanSpeed -= 50 // increase speed of pacman for next level
@@ -341,21 +369,30 @@ function init() {
     if (cells[pacmanCurrentPosition].classList.contains('ghost') && !cells[pacmanCurrentPosition].classList.contains('scared_ghost') && !cells[pacmanCurrentPosition].classList.contains('scared_ghost_end')){ // if cell of pacman has a ghost which is not scared
       lives = lives - 1 // lose a life
       livesValue.innerText = lives // update html
-      if (lives > 0){ // if still have lives
-        document.removeEventListener('keydown', handleKeyDown) // remove key event listener
-        // clearInterval(pacmanMove) // clear pacman interval
-        resetCharacters()
-        console.log('YOU LOSE A LIFE') // log
-        loseLife.classList.remove('none') // lose life page make visible
-        // resetCharacters() // reset all characters to start
-        setTimeout(function(){ // timer function
-          loseLife.classList.add('none') // remove lose life page
+      audio.src = '../audio/lose_life.wav'
+      audio.play()
+      removePacman(pacmanCurrentPosition)
+      removeGhosts()
+      cells[pacmanCurrentPosition].classList.add('pacman_sad') // remove ghost from current position
+      clearInterval(pacmanMove) // stop pac man 
+
+      document.removeEventListener('keydown', handleKeyDown) // stop keys working
+      ghosts.forEach(ghost => clearInterval(ghost.timerId)) // stop ghost moving
+
+      setTimeout(() => {
+        cells[pacmanCurrentPosition].classList.remove('pacman_sad') // remove ghost from current position
+        addPacman(pacmanCurrentPosition)
+        if (lives > 0){ // if still have lives
+          document.addEventListener('keydown', handleKeyDown) // remove key event listener
+          // clearInterval(pacmanMove) // clear pacman interval
+          resetCharacters()
+          console.log('YOU LOSE A LIFE') // log
           ghosts.forEach(ghost => moveGhost(ghost)) // move ghosts 
-          document.addEventListener('keydown', handleKeyDown) // add key event listener
-        }, 4000)
-      } else if (lives === 0){ // if all lives gone
-        returnToStart() // return to start page
-      }    
+        } else if (lives === 0){ // if all lives gone
+          returnToStart() // return to start page
+        }
+      }, 3000)
+          
     }
   }
 
@@ -387,16 +424,22 @@ function init() {
       removePacman(pacmanCurrentPosition) // remove pacman from current position
       if (key === right && pacmanCurrentPosition === (width * ((width - 1) / 2) + (width - 1))){ // if the right arrow at middle right
         pacmanCurrentPosition = (width * ((width - 1) / 2)) // pacman position to middle left
+        pacmanDirection = pacmanClassRight
       } else if (key === right && cells[pacmanCurrentPosition + 1].classList.value !== 'blue'){ // if the right arrow is pressed and wall not right
         pacmanCurrentPosition++ // redefine pacman position index to be previous position plus 1
+        pacmanDirection = pacmanClassRight
       } else if (key === left && cells[pacmanCurrentPosition - 1].classList.value !== 'blue') { // if the left arrow is pressed and wall not left
         pacmanCurrentPosition-- // redefine pacman position index to be previous position minus 1
+        pacmanDirection = pacmanClassLeft
       } else if (key === left && pacmanCurrentPosition === (width * ((width - 1) / 2))){
         pacmanCurrentPosition = (width * ((width - 1) / 2) + (width - 1))
+        pacmanDirection = pacmanClassLeft
       } else if (key === up && cells[pacmanCurrentPosition - width].classList.value !== 'blue') { // if the up arrow is pressed and wall not above
         pacmanCurrentPosition -= width // redefine pacman position index to be previous position minus width
+        pacmanDirection = pacmanClassUp
       } else if (key === down && cells[pacmanCurrentPosition + width].classList.value !== 'blue') { // if the down arrow is pressed and wall not below
         pacmanCurrentPosition += width // redefine pacman position index to be previous position plus width
+        pacmanDirection = pacmanClassDown
       }
       pointsEaten() // eat points whilst pacman moves
       specialPointsEaten() // eat special points whilst pacman moves
@@ -411,6 +454,8 @@ function init() {
   
   // * threeTwoOne function to count down game start
   function threeTwoOne(){
+    // audio.src = '../audio/countdown.wav'
+    // audio.play()
     threeTwoOneBox.classList.remove('none') // make countdown page visible
     threeTwoOneValue.innerText = '3' // add html
     counterTimer = setInterval(() => { // interval every second to count down
@@ -431,15 +476,17 @@ function init() {
 
   // * different characters and maps
   function chooseCharacter(event){
+    // audio.src = '../audio/button.wav'
+    // audio.play()
+    audio.src = '../audio/countdown.wav'
+    audio.play()
     if (event.target.id === 'pacman1'){
-      pacmanClass = 'patrick'
       pacmanStartPosition = 346 // starting position of the pacman (refers to an index)
       pacmanCurrentPosition = pacmanStartPosition // use let to track where the pacman currently is (refers to an index)
       blocksNoPoints = [346, 156, 177, 176, 175, 174, 195, 216, 237, 198, 199, 200,
         258, 279, 259, 260, 261, 262, 263, 264, 265,
         266, 287, 245, 215, 224, 225, 203, 182, 181,
-        180, 179, 158, 178, 218, 219, 220, 221, 222, 402, 24, 416, 38] // cells that don't have points
-       
+        180, 179, 158, 178, 218, 219, 220, 221, 222, 402, 24, 416, 38] // cells that don't have points 
       specialPoints = [402, 24, 416, 38] // cells that have special points
       walls = [44, 45, 65, 66, 47, 48, 49,
         50, 31, 52, 73, 68, 69, 70, 71, 107, 108,
@@ -597,6 +644,8 @@ function init() {
   // * start game
   function startGame(event){
     if (event.target.classList.contains(pacmanStartClass)){ // if you click pacman on start page
+      audio.src = '../audio/button.wav'
+      audio.play()
       startGamePage.classList.add('none') // remove start page
       characterPage.classList.remove('none') // make character page visible
     }
@@ -604,6 +653,8 @@ function init() {
 
   // * menu game
   function menuGame(){
+    audio.src = '../audio/button.wav'
+    audio.play()
     clearInterval(pacmanMove) // stop pac man 
     menuGamePage.classList.remove('none') // add menu page
     document.removeEventListener('keydown', handleKeyDown) // stop keys working
@@ -612,6 +663,8 @@ function init() {
 
   // * resume game
   function resumeGame(){ 
+    audio.src = '../audio/button.wav'
+    audio.play()
     menuGamePage.classList.add('none') // remove menu page
     document.addEventListener('keydown', handleKeyDown) // enable keys to move pacman
     ghosts.forEach(ghost => moveGhost(ghost)) // move ghosts again
@@ -619,10 +672,26 @@ function init() {
 
   // * quit game
   function quitGame(){
+    audio.src = '../audio/button.wav'
+    audio.play()
     menuGamePage.classList.add('none') // remove menu page
     // clearInterval(pacmanMove) // stop pac man 
     returnToStart() // return to start page
   }
+
+  //function that when you hover over button the gif becomes the cover
+  function handleMouseEnter(event){
+    if (event.target.classList.contains('pacman_start')){
+      event.target.classList.add('shake')
+    }
+  }
+
+  //function that when you stop hovering over button it goes back to normal
+  function handleMouseLeave(event){
+    event.target.classList.remove('shake')
+  }
+
+
 
   createStartGrid(0) // create start page on loading website
 
@@ -633,8 +702,12 @@ function init() {
   resumeButton.addEventListener('click', resumeGame) // resume button
   quitButton.addEventListener('click', quitGame) // quit button
   characterButtons.forEach(button => button.addEventListener('click', chooseCharacter)) // choose character buttons
-  pacmanStartButtons.forEach(button => button.addEventListener('click', startGame)) // start page grid buttons 
- 
+  pacmanStartButtons.forEach(button => {
+    button.addEventListener('click', startGame)
+    button.addEventListener('mouseenter', handleMouseEnter)
+    button.addEventListener('mouseleave', handleMouseLeave)
+  }) // start page grid buttons 
+  
 }
 
 window.addEventListener('DOMContentLoaded', init)
