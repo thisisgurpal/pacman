@@ -233,7 +233,7 @@ function init() {
       cells[ghost.currentIndex].classList.remove('ghost', 'scared_ghost', 'scared_ghost_end') // remove ghost from current position
       cells[ghost.currentIndex].classList.add('special_point') // remove ghost from current position
       backgroundAudio.pause()
-      audio.src = 'audio/ghost_eat.wav'
+      audio.src = '../audio/ghost_eat.wav'
       audio.play()
       clearInterval(pacmanMove) // stop pac man 
       removePacman(ghost.currentIndex) // remove pacman from current location
@@ -273,10 +273,10 @@ function init() {
   function pointsEaten(){
     if (cells[pacmanCurrentPosition].classList.contains(gridPointsclass) && !cells[pacmanCurrentPosition].classList.contains('ghost')){ // if pacman in same cell with class grid points
       
-      pointsAudio.src = 'audio/points_audio.wav'
+      pointsAudio.src = '../audio/points_audio.wav'
       pointsAudio.play()
       if (points === highScoreCurrent){
-        audio.src = 'audio/highscore.wav'
+        audio.src = '../audio/highscore.wav'
         audio.play()
         hsBox.classList.add('shake_box')
         setTimeout(()=>{
@@ -315,7 +315,7 @@ function init() {
   function specialPointsEaten(){
     if (cells[pacmanCurrentPosition].classList.value === 'milkshake'){ // when pacman in same cell as special point
       milkshake++ // count how many special points eaten
-      audio.src = 'audio/point.wav'
+      audio.src = '../audio/point.wav'
       audio.play()
       pointsBox.classList.add('shake_box')
       setTimeout(()=>{
@@ -366,7 +366,7 @@ function init() {
   // * next level function
   function levelUp(){
     backgroundAudio.pause()
-    audio.src = 'audio/level_up.wav'
+    audio.src = '../audio/level_up.wav'
     audio.play()
     document.removeEventListener('keydown', handleKeyDown) // remove key event listener
     newGhost = new Ghost(ghostsArray[Math.floor(Math.random() * ghostsArray.length)], 199, 250)
@@ -407,7 +407,7 @@ function init() {
     if (cells[pacmanCurrentPosition].classList.contains('ghost') && !cells[pacmanCurrentPosition].classList.contains('scared_ghost') && !cells[pacmanCurrentPosition].classList.contains('scared_ghost_end')){ // if cell of pacman has a ghost which is not scared
       lives = lives - 1 // lose a life
       livesValue.innerText = lives // update html
-      audio.src = 'audio/lose_life.wav'
+      audio.src = '../audio/lose_life.wav'
       audio.play()
       backgroundAudio.pause()
       liveBox.classList.add('shake_box')
@@ -440,7 +440,7 @@ function init() {
           console.log('YOU LOSE A LIFE') // log
           ghosts.forEach(ghost => moveGhost(ghost)) // move ghosts 
         } else if (lives === 0){ // if all lives gone
-          audio.src = 'audio/game_over.wav'
+          audio.src = '../audio/game_over.wav'
           audio.play()
           threeTwoOneBox.classList.remove('none') // make next leve page visible
           threeTwoOneValue.innerText = 'GAME OVER' // show level on next level page
@@ -554,7 +554,7 @@ function init() {
   function chooseCharacter(event){
     // audio.src = '../audio/button.wav'
     // audio.play()
-    audio.src = 'audio/countdown.wav'
+    audio.src = '../audio/countdown.wav'
     audio.play()
     if (event.target.id === 'pacman1'){
       pacmanClassRight = 'pacman_right' // define the class of the character
@@ -746,9 +746,9 @@ function init() {
   // * start game
   function startGame(event){
     if (event.target.classList.contains(pacmanStartClass)){ // if you click pacman on start page
-      audio.src = 'audio/button.wav'
+      audio.src = '../audio/button.wav'
       audio.play()
-      backgroundAudio.src = 'audio/game_background.wav'
+      backgroundAudio.src = '../audio/game_background.wav'
       backgroundAudio.volume = 0.3
       backgroundAudio.loop = true
       backgroundAudio.play()
@@ -760,7 +760,7 @@ function init() {
   // * menu game
   function menuGame(){
     backgroundAudio.pause()
-    audio.src = 'audio/button.wav'
+    audio.src = '../audio/button.wav'
     audio.play()
     clearInterval(pacmanMove) // stop pac man 
     menuGamePage.classList.remove('none') // add menu page
@@ -771,7 +771,7 @@ function init() {
   // * resume game
   function resumeGame(){ 
     backgroundAudio.play()
-    audio.src = 'audio/button.wav'
+    audio.src = '../audio/button.wav'
     audio.play()
     menuGamePage.classList.add('none') // remove menu page
     document.addEventListener('keydown', handleKeyDown) // enable keys to move pacman
@@ -780,7 +780,7 @@ function init() {
 
   // * help page
   function instructionsGame(){ 
-    audio.src = 'audio/button.wav'
+    audio.src = '../audio/button.wav'
     audio.play()
     menuGamePage.classList.add('none') // remove menu page
     helpGamePage.classList.remove('none') // add help page
@@ -788,7 +788,7 @@ function init() {
 
   // * resume game
   function returnGame(){
-    audio.src = 'audio/button.wav'
+    audio.src = '../audio/button.wav'
     audio.play()
     helpGamePage.classList.add('none') // remove help page
     menuGamePage.classList.remove('none') // add menu page 
@@ -797,7 +797,7 @@ function init() {
 
   // * quit game
   function quitGame(){
-    audio.src = 'audio/button.wav'
+    audio.src = '../audio/button.wav'
     audio.play()
     menuGamePage.classList.add('none') // remove menu page
     // clearInterval(pacmanMove) // stop pac man 
