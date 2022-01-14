@@ -10,7 +10,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300&display=swap" rel="stylesheet">
   </head>
   <body>
-    <audio src=""></audio>
+    <audio class='background_audio' src=""></audio>
+    <audio class='points_audio' src=""></audio>
+    <audio class='game_audio' src=""></audio>
     <div class='start_game'>
       <div id='start_buttons_align'>
         <div class='start_title'></div>
@@ -22,9 +24,8 @@
       
       <div id='character_buttons_align'>
         <h1 class='pulse character_title'>CHOOSE CHARACTER</h1>
-        <button class='character_buttons' id='pacman1'>PACMAN 1</button>
-      <button class='character_buttons' id='pacman2'>PACMAN 2</button>
-      <button class='character_buttons' id='pacman3'>PACMAN 3</button>
+        <button class='character_buttons' id='pacman1'><img class='img_button' src="images/pacman_char_button.gif" alt="">PACMAN</button>
+      <button class='character_buttons' id='pacman2'><img class='img_button' src="images/cookie_button.gif" alt="">COOKIE MONSTER</button>
     </div>
     </div>
     <div class='three_two_one none'><p class='three_two_one_value'></p></div>
@@ -32,11 +33,27 @@
       <div id='menu_buttons_align'>
       <button class='menu_buttons' id='resume'>RESUME</button>
       <button class='menu_buttons' id='quit'>QUIT</button>
+      <button class='menu_buttons' id='instructions'>HELP</button>
     </div>
     </div>
     <div class='lose_life none'>
       <div class='lose_pic_align'>
       <div class='lose_pic'></div>
+    </div>
+    </div>
+    <div class='help none'>
+      <div class='help_buttons_align'>
+        <div class='help_pic' id='pacman_help'>PACMAN</div>
+      <div class='help_pic'>- USE ARROW KEYS TO MOVE PACMAN</div>
+      <div class='help_pic' id='pacman_help'>GHOSTS</div>
+      <div class='help_pic'>- GHOSTS CAN EAT YOU IF THEY ARE NOT BLUE</div>
+      <div class='help_pic'>- IF GHOST ARE BLUE THEY ARE SCARED</div>
+      <div class='help_pic'>- PACMAN CAN EAT SCARED GHOSTS</div>
+      <div class='help_pic' id='pacman_help'>SPECIAL POINTS</div>
+      <div class='help_pic'>- SPECIAL POINTS MAKE GHOSTS SCARED FOR 10 SECONDS</div>
+      <div class='help_pic' id='pacman_help'>EXTRA POINTS</div>
+      <div class='help_pic'>- COLLECT A SPECIAL POINT <br> - EAT A SCARED GHOST</div>
+      <button class='help_buttons' id='return'>RETURN</button>
     </div>
     </div>
     <div class="grid-wrapper">

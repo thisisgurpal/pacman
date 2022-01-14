@@ -37,7 +37,7 @@ body {
   width: 500px;
   margin-top: 0px;
   color: white;
- background-color: black;
+  background-color: black;
 }
 
 .start_grid {
@@ -61,12 +61,32 @@ body {
   background-color: black;
 }
 
+#pacman_help{
+  text-decoration: underline;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 25px;
+}
+
 .start, .start_title, .character_title{
   font-family: 'Teko', sans-serif;
   font-weight: bold;
   color: white;
   font-size: 40px;
 }
+
+.help_pic{
+  font-family: 'Teko', sans-serif;
+  color: white;
+  font-size: 20px;
+}
+
+/* #pacman_help_title{
+  text-decoration: underline;
+  font-family: 'Teko', sans-serif;
+  color: white;
+  font-size: 25px;
+} */
 
 .start{
   font-size: 40px;
@@ -116,6 +136,11 @@ body {
   background-size: cover;
 }
 
+.pacman_happy{
+  background-image: url('../images/happy.gif');
+  background-size: cover;
+}
+
 .patrick{
   background-image: url('../images/patrick.gif');
   background-size: cover;
@@ -136,13 +161,33 @@ body {
   background-size: cover;
 }
 
+
+
 .blue{
   background-image: url('../images/blue2.jpg');
   background-size: cover;
 }
 
+.yellow{
+  background-image: url('../images/yellow.jpg');
+  background-size: cover;
+}
+
+.white{
+  background-image: url('../images/white.jpg');
+  background-size: cover;
+}
+
+
 .grid_points{
   background-image: url('../images/point_basic.jpg');
+  background-size: cover;
+  /* background-color: yellow;
+  border-radius: 10px; */
+}
+
+.cookie_points{
+  background-image: url('../images/cookie_points.jpg');
   background-size: cover;
   /* background-color: yellow;
   border-radius: 10px; */
@@ -168,6 +213,35 @@ body {
   /* background-color: yellow;
   border-radius: 10px; */
 }
+
+.pacman_blue_right{
+  background-image: url('../images/pacman_blue_right.gif');
+  background-size: cover;
+  /* background-color: yellow;
+  border-radius: 10px; */
+}
+
+.pacman_blue_left{
+  background-image: url('../images/pacman_blue_left.gif');
+  background-size: cover;
+  /* background-color: yellow;
+  border-radius: 10px; */
+}
+
+.pacman_blue_up{
+  background-image: url('../images/pacman_blue_up.gif');
+  background-size: cover;
+  /* background-color: yellow;
+  border-radius: 10px; */
+}
+
+.pacman_blue_down{
+  background-image: url('../images/pacman_blue_down.gif');
+  background-size: cover;
+  /* background-color: yellow;
+  border-radius: 10px; */
+}
+
 
 #values_box{
   width: 100%;
@@ -223,13 +297,18 @@ body {
   background-size: cover;
 }
 
+.ghost_map2{
+  background-image: url('../images/ghosts_map2.gif');
+  background-size: cover;
+}
+
 /* .start_title{
   background-image: url('../images/pacman_title.jpg');
   background-size: cover;
   width: 100px;
 } */
 
-#start_buttons_align, #character_buttons_align, #menu_buttons_align{
+#start_buttons_align, #character_buttons_align, #menu_buttons_align, .help_buttons_align{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -244,7 +323,13 @@ body {
   padding: 6px;
 }
 
-#character_buttons_align button, .grid-wrapper button, #menu_buttons_align button{
+.img_button{
+  width:20px;
+  height: 20px;
+  margin-right: 10px;
+  
+}
+#character_buttons_align button, .grid-wrapper button, #menu_buttons_align button, .help_buttons_align button{
   background-color: black;
   font-family: 'Teko', sans-serif;
   margin-top: 20px;
@@ -269,15 +354,15 @@ button[disabled]{
   cursor: default;
 }
 
-#character_buttons_align button:not([disabled]):hover, .grid-wrapper button:not([disabled]):hover, #menu_buttons_align button:not([disabled]):hover {
+#character_buttons_align button:not([disabled]):hover, .grid-wrapper button:not([disabled]):hover, #menu_buttons_align button:not([disabled]):hover, .help_buttons_align button:not([disabled]):hover {
   transform: scale(1.05);
   background-color: rgb(248, 182, 0);
 }
 
-#menu_buttons_align button, #character_buttons_align button{
+#menu_buttons_align button, #character_buttons_align button, .help_buttons_align button{
   font-size: 30px;
   height: 60px;
-  width: 30%;
+  width: 40%;
   letter-spacing: 2px;
 }
 
@@ -285,7 +370,7 @@ button[disabled]{
   height: 90%
 }
 
-.character_game, .menu_game, .lose_life, .three_two_one, .start_game{
+.character_game, .menu_game, .lose_life, .three_two_one, .start_game, .help{
   height: 800px;
   width: 600px;
   position: absolute;
@@ -299,7 +384,7 @@ button[disabled]{
 
 
 
-.menu_game, .lose_life, .three_two_one{
+.menu_game, .lose_life, .three_two_one, .help{
   background-color: rgb(0, 0, 0, 0.7);
 }
 
@@ -341,7 +426,7 @@ button[disabled]{
   margin-bottom: 15px;;
   color: rgb(248, 182, 0);
   font-family: 'Teko', sans-serif;
-  font-size: 20px;
+  font-size: 30px;
 }
 
 .pulse {
@@ -380,5 +465,28 @@ button[disabled]{
 
   40%, 60% {
     transform: translateX(5px);
+  }
+}
+
+.shake_box {
+  animation: shake_box 1s ease 2;
+  border: 1px solid white;
+}
+
+@keyframes shake_box {
+  10%, 90% {
+    transform: translateX(-4px);
+  }
+
+  20%, 80% {
+    transform: translateX(2px);
+  }
+
+  30%, 50%, 70% {
+    transform: translateX(-4px);
+  }
+
+  40%, 60% {
+    transform: translateX(2px);
   }
 }
