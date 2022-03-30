@@ -45,22 +45,30 @@ For the moving of the ghosts I made an array of directions from which a random o
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/160440328-aea57783-1655-45a0-9453-4720ca46ad22.JPG" width="700">
 <h3>Scared Ghosts</h3>
+To make all the ghosts scared I had to change isScared from false to true for each ghost.
+<h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/160659468-f6b8691c-7f0d-47a9-91c1-8bbc7b3a290b.JPG" width="700">
-<img src="https://user-images.githubusercontent.com/97416784/160659610-f751f661-63bc-42c2-ad96-708b2071d05e.JPG" width="700">
+After 6 seconds of the ghosts being scared, they then will turn into scared ghosts ending (as they are about to turn back to normal and are given a class which to visually let the user know this). After 10 seconds we turn all scared ghosts back to normal by setting isScared and isScaredEnding to false.
+<h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/160659659-03a3fd01-744c-4667-8f41-157aabeca612.JPG" width="700">
+<img src="https://user-images.githubusercontent.com/97416784/160659610-f751f661-63bc-42c2-ad96-708b2071d05e.JPG" width="700">
 <h3>Points</h3>
+To check if pacman has landed on a point I see if that grid cell contains the points class. If so, points will then go up by 10 and if that means the highscore is reached then that will also increase with the points. The points class for that cell is then removed.  
+<h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/160657328-b51df2c4-367a-4f4e-be7a-221db905870d.JPG" width="700">
 <h3>Lives & Ghost collision</h3>
+If the pacman class and ghost class are in the same grid cell then I know there is a collision, this mean a life is lost.
+<h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/160658101-dc808f6d-97ab-4ce7-bcbc-0f89c0552693.JPG" width="700">
+After the user loses a life, if the total lives the user has is still greater than zero then the character are reset and the game continues. However if the total lives is now zero, the game will end and the user will be taken to the home page.
+<h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/160658154-a5e9b1e1-53ea-45b0-8d75-159f079033d7.JPG" width="700">
-<h3>Scared Ghosts collision</h3>
-<img src="https://user-images.githubusercontent.com/97416784/160661201-30d98f63-c798-4f6c-bee2-0d30544121e5.JPG" width="700">
-<img src="https://user-images.githubusercontent.com/97416784/160661274-45c98afa-b903-4755-9a04-778c10e324c2.JPG" width="700">
-<img src="https://user-images.githubusercontent.com/97416784/160661309-b800a453-e642-4dbd-871d-f89dfb62273c.JPG" width="700">
 <h3>Levels</h3>
+Once the user has complete the level the game will move onto to the next level. This means a new ghost is added with a specified speed, all the other ghosts from the last game will have an increase speed and pacman will have an increased speed. This will make the game harder and more difficult as the levels go on.
+<h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/160662170-40a2b3fe-e3c8-4426-8873-b45344df8888.JPG" width="700">
-<img src="https://user-images.githubusercontent.com/97416784/160662201-17bae276-e448-4870-8991-f50c53d9a557.JPG" width="700">
 <h3>Styling</h3
+For the styling is didn't want to replicate the original exactly, I wanted to keep it minimal, easy on the eye and still recognizable. The first page I wanted to be a game in itself, making you click the ghost to start. I added audio once you get past this homepage on the button clicks and game interactions with points and lives lost. 
 <img src="">
   <table>
   <tr>
@@ -70,8 +78,12 @@ For the moving of the ghosts I made an array of directions from which a random o
     <td valign="top"><img src="https://user-images.githubusercontent.com/97416784/160662732-7763ea30-510d-4c48-b9ac-86170d3d6c63.JPG" width="250"></td>
   </tr>
 </table>
+    
 # Bugs
+Pacman and the ghosts may take a few seconds to load when first starting to play.
 # Challenges
+Trying to incorporate the AI feature where the ghost follow the pacman around the game.
 # Wins
-# Key learnings
+Making a game that is functioning, has increasing levels and is fun to play!
 # Contact
+https://www.linkedin.com/in/gurpal-gohler/
