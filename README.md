@@ -31,10 +31,18 @@ Adding this event listener is what is needed for the handleKeyDown function to b
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/159759022-32c6c45a-5885-4502-b0a9-5e7a224d03d2.JPG" width="700">
 <h3>Adding, removing and moving Ghosts</h3>
+To add ghosts I started by making a class where I can specify the ghosts class name, starting index and speed.
+<h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/160430571-bc0eae65-e4c2-448a-bb8c-ef4b74ad67c0.JPG" width="700">
+On the first level of the game I made sure there were only 4 ghosts all moving at the same speed.
+<h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/160430768-08dae014-594f-4740-9c3d-5426a6450935.JPG" width="350">
+Adding and removing ghosts is done by adding and removing classes.
+<h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/160432224-e0b628c7-3495-46df-bdb5-ce56c5a8e7c6.JPG" width="700">
 <img src="https://user-images.githubusercontent.com/97416784/160432455-87a61d3b-bd80-4efe-ab33-f49323e877c4.JPG" width="700">
+For the moving of the ghosts I made an array of directions from which a random one is chosen for each ghost. The ghost will then have this direction for 7 moves before a new direction is chosen. If the ghost cannot move into the direction chosen, a new direction is then picked at random.  
+<h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/160440328-aea57783-1655-45a0-9453-4720ca46ad22.JPG" width="700">
 <h3>Scared Ghosts</h3>
 <img src="https://user-images.githubusercontent.com/97416784/160659468-f6b8691c-7f0d-47a9-91c1-8bbc7b3a290b.JPG" width="700">
