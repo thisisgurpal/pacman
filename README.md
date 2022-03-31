@@ -1,7 +1,7 @@
 # General Assembly Project 1 - Pacman game
 Solo project building a childhood favourite game, Pacman. This project was over the duration of a week using JavaScript, HTML and CSS. The game has two different maps, the ability to go to the next level, and all other characteristics of the Pacman game.
 <h3></h3>
-<img src="https://user-images.githubusercontent.com/97416784/159767050-f1f804e0-8cac-4005-b1fe-11dde48f4c10.JPG" width="350">
+<img src="https://user-images.githubusercontent.com/97416784/159767050-f1f804e0-8cac-4005-b1fe-11dde48f4c10.JPG" width="500">
 
 # Link
 https://thisisgurpal.github.io/pacman/
@@ -11,13 +11,57 @@ To create a game of your choice in a week using vanilla JavaScript.
 # Technologies used
 JavaScript, CSS and HTLM.
 
-# Approach taken
+# Walk through
 <h3>Planning</h3>
 First I started to plan out the map of the game where the Pacman and the Ghosts can move around. Then I started to think where the points and how I would show the points score. 
-<h3>Making the grid for the game</h3>
-The grid walls including the points was made in JavaScript and added into the html by referencing a div with a specified class.
+<h3>Home page</h3>
+I wanted the home page to feel like a game in itself, I made it interactive so you have to click the ghost to start.
 <h3></h3>
-<img src="https://user-images.githubusercontent.com/97416784/159734077-a1e3f553-b394-49d0-85a4-864c98068288.JPG" width="700">
+<img src="https://user-images.githubusercontent.com/97416784/161072217-b91f2eb0-8b98-4752-889e-0395958ddd43.JPG" width="500">
+<h3>Choosing the map</h3>
+Once you click the ghost on the home page, you will be taken to the page where you choose the map you want to play.
+<h3></h3>
+<img src="https://user-images.githubusercontent.com/97416784/161072542-3b4055d9-9710-41f6-b278-17ef37f52007.JPG" width="500">
+<h3>Game count down</h3>
+When you choose the map a count downfrom 3 will begin for the game to start.
+<h3></h3>
+<img src="https://user-images.githubusercontent.com/97416784/161073658-26efe415-b8ae-463e-bb5d-e978983f09b5.JPG" width="500">
+<h3>Start eating points</h3>
+Use the arrow keys on the keyboards to move pacman (you can press once or hold down if you wish) to start eating points.
+<h3></h3>
+<img src="https://user-images.githubusercontent.com/97416784/161074212-b79da501-4ebe-4fa6-b8bb-f181082c9560.JPG" width="500">
+<h3>Losing a life</h3>
+When you collide with a ghost you will lose a life, pacman will turn into a scared emoji and the lives counts goes down.
+<h3></h3>
+<img src="https://user-images.githubusercontent.com/97416784/161074899-7f3e64e6-cd81-497a-bc13-0ba5b7f72992.JPG" width="500">
+<h3>Eating a special point</h3>
+If you eat one of the 4 special points you will get extra points and the ghosts will turn scared (they turn blue), this will mean you can eat them for a 10 second period!
+<h3></h3>
+<img src="https://user-images.githubusercontent.com/97416784/161075386-ced28917-be42-474c-a0dc-160420596b3b.JPG" width="500">
+<h3>Eating a scared ghost</h3>
+When the ghost are scared and you eat one of them you will get 100 points and pacman turns into a gif that shows this for one second. Then that scared ghost goes back to its starting position and it's turned back to normal and the game resumes.
+<h3></h3>
+<table>
+  <tr>
+    <td valign="top"><img src="https://user-images.githubusercontent.com/97416784/161077187-8d6099d9-226d-4979-b9e5-4869cb7a4bd8.JPG" width="500"></td>
+    <td valign="top"><img src="https://user-images.githubusercontent.com/97416784/161077451-4523512f-e277-47a3-a748-9fc618866574.JPG" width="500"></td>
+  </tr>
+</table>
+<h3>Level up</h3>
+when you've eaten all the points you will move to the next level. On each new level pacmans speed goes up, the ghosts speed goes up and there is also a new random ghost added to the game.
+<h3></h3>
+<table>
+  <tr>
+    <td valign="top"><img src="https://user-images.githubusercontent.com/97416784/161078526-60036586-4ec9-477d-b3fe-f836f7ea6f82.JPG" width="500"></td>
+    <td valign="top"><img src="https://user-images.githubusercontent.com/97416784/161078582-b0720494-8a73-417e-bac5-376f62d9d6d9.JPG" width="500"></td>
+  </tr>
+</table>
+<h3>Game over</h3>
+When you loose all your lives the game is over and you are returned back to the home page.
+<h3></h3>
+<img src="https://user-images.githubusercontent.com/97416784/161079160-f32338be-e0ed-4e6c-8da1-1fc3fa442f32.JPG" width="500">
+
+# Code exmaples
 <h3>Adding, removing and moving Pacman</h3>
 Adding and removing pacman is done by adding and removing classes to grid numbers.
 <h3></h3>
@@ -46,40 +90,7 @@ Adding and removing ghosts is done by adding and removing classes.
 For the moving of the ghosts I made an array of directions from which a random one is chosen for each ghost. The ghost will then have this direction for 7 moves before a new direction is chosen. If the ghost cannot move into the direction chosen, a new direction is then picked at random.  
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/160440328-aea57783-1655-45a0-9453-4720ca46ad22.JPG" width="700">
-<h3>Scared Ghosts</h3>
-To make all the ghosts scared I had to change isScared from false to true for each ghost.
-<h3></h3>
-<img src="https://user-images.githubusercontent.com/97416784/160659468-f6b8691c-7f0d-47a9-91c1-8bbc7b3a290b.JPG" width="700">
-After 6 seconds of the ghosts being scared, they then will turn into scared ghosts ending (as they are about to turn back to normal and are given a class which to visually let the user know this). After 10 seconds we turn all scared ghosts back to normal by setting isScared and isScaredEnding to false.
-<h3></h3>
-<img src="https://user-images.githubusercontent.com/97416784/160659659-03a3fd01-744c-4667-8f41-157aabeca612.JPG" width="700">
-<img src="https://user-images.githubusercontent.com/97416784/160659610-f751f661-63bc-42c2-ad96-708b2071d05e.JPG" width="700">
-<h3>Points</h3>
-To check if pacman has landed on a point I see if that grid cell contains the points class. If so, points will then go up by 10 and if that means the highscore is reached then that will also increase with the points. The points class for that cell is then removed.  
-<h3></h3>
-<img src="https://user-images.githubusercontent.com/97416784/160657328-b51df2c4-367a-4f4e-be7a-221db905870d.JPG" width="700">
-<h3>Lives & Ghost collision</h3>
-If the pacman class and ghost class are in the same grid cell then I know there is a collision, this mean a life is lost.
-<h3></h3>
-<img src="https://user-images.githubusercontent.com/97416784/160658101-dc808f6d-97ab-4ce7-bcbc-0f89c0552693.JPG" width="700">
-After the user loses a life, if the total lives the user has is still greater than zero then the character are reset and the game continues. However if the total lives is now zero, the game will end and the user will be taken to the home page.
-<h3></h3>
-<img src="https://user-images.githubusercontent.com/97416784/160658154-a5e9b1e1-53ea-45b0-8d75-159f079033d7.JPG" width="700">
-<h3>Levels</h3>
-Once the user has complete the level the game will move onto to the next level. This means a new ghost is added with a specified speed, all the other ghosts from the last game will have an increase speed and pacman will have an increased speed. This will make the game harder and more difficult as the levels go on.
-<h3></h3>
-<img src="https://user-images.githubusercontent.com/97416784/160662170-40a2b3fe-e3c8-4426-8873-b45344df8888.JPG" width="700">
-<h3>Styling</h3
-For the styling is didn't want to replicate the original exactly, I wanted to keep it minimal, easy on the eye and still recognizable. The first page I wanted to be a game in itself, making you click the ghost to start. I added audio once you get past this homepage on the button clicks and game interactions with points and lives lost. 
-<img src="">
-  <table>
-  <tr>
-    <td valign="top"><img src="https://user-images.githubusercontent.com/97416784/160662563-b8b89274-8a0e-40a0-8979-80d1e4016761.JPG" width="250"></td>
-    <td valign="top"><img src="https://user-images.githubusercontent.com/97416784/160662659-4380433a-917f-4db7-a13e-f51e1223c7cf.JPG" width="250"></td>
-    <td valign="top"><img src="https://user-images.githubusercontent.com/97416784/160662694-c194d0a5-1c4e-4f8a-8afa-3dd623fc8a2c.JPG" width="250"></td>
-    <td valign="top"><img src="https://user-images.githubusercontent.com/97416784/160662732-7763ea30-510d-4c48-b9ac-86170d3d6c63.JPG" width="250"></td>
-  </tr>
-</table>
+
     
 # Bugs
 Pacman and the ghosts may take a few seconds to load when first starting to play.
