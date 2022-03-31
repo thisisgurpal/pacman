@@ -1,14 +1,16 @@
 # General Assembly Project 1 - Pacman game
+Solo project building a childhood favourite game, Pacman. This project was over the duration of a week using JavaScript, HTML and CSS. The game has two different maps, the ability to go to the next level, and all other characteristics of the Pacman game.
+<h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/159767050-f1f804e0-8cac-4005-b1fe-11dde48f4c10.JPG" width="350">
 
 # Link
 https://thisisgurpal.github.io/pacman/
 # Brief
 To create a game of your choice in a week using vanilla JavaScript.
+
 # Technologies used
 JavaScript, CSS and HTLM.
-# Controls
-...
+
 # Approach taken
 <h3>Planning</h3>
 First I started to plan out the map of the game where the Pacman and the Ghosts can move around. Then I started to think where the points and how I would show the points score. 
