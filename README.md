@@ -1,10 +1,11 @@
 # General Assembly Project 1 - Pacman game
-Solo project building a childhood favourite game, Pacman. This project was over the duration of a week using JavaScript, HTML and CSS. The game has two different maps, the ability to go to the next level, and all other characteristics of the Pacman game.
+Solo project building a childhood favourite game, Pacman. This project was over the duration of a week using JavaScript, HTML and CSS. The game has two different maps, the ability to go to the next level, and all other characteristics of the Pacman game. You can play the game <a href="https://thisisgurpal.github.io/pacman/">here</a>.
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/159767050-f1f804e0-8cac-4005-b1fe-11dde48f4c10.JPG" width="500">
 
-# Link
-https://thisisgurpal.github.io/pacman/
+# Links
+* Game: https://thisisgurpal.github.io/pacman/
+* Gurpal Gohler (LinkedIn): https://www.linkedin.com/in/gurpal-gohler/
 # Brief
 To create a game of your choice in a week using vanilla JavaScript.
 
@@ -98,5 +99,3 @@ Pacman and the ghosts may take a few seconds to load when first starting to play
 Trying to incorporate the AI feature where the ghost follow the pacman around the game.
 # Wins
 Making a game that is functioning, has increasing levels and is fun to play!
-# Contact
-https://www.linkedin.com/in/gurpal-gohler/
