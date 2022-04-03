@@ -4,8 +4,11 @@ Solo project building a childhood favourite game, Pacman. This project was over 
 <img src="https://user-images.githubusercontent.com/97416784/159767050-f1f804e0-8cac-4005-b1fe-11dde48f4c10.JPG" width="500">
 
 # Links
-* Game: https://thisisgurpal.github.io/pacman/
-* Gurpal Gohler (LinkedIn): https://www.linkedin.com/in/gurpal-gohler/
+<h3>Application</h3>
+Pacman: https://thisisgurpal.github.io/pacman/
+<h3>Contact</h3>
+Gurpal Gohler (LinkedIn): https://www.linkedin.com/in/gurpal-gohler/
+
 # Brief
 To create a game of your choice in a week using vanilla JavaScript.
 
