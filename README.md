@@ -12,10 +12,11 @@ Gurpal Gohler (LinkedIn): https://www.linkedin.com/in/gurpal-gohler/
 # Brief
 To create a game of your choice in a week using vanilla JavaScript.
 
-# Technologies used
+# Technologies and tools used
 * JavaScript
 * CSS
 * HTLM
+* Visual Studio Code
 
 # Walk through
 <h3>Planning</h3>
