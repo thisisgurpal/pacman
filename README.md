@@ -22,27 +22,27 @@ To create a game of your choice in a week using vanilla JavaScript.
 <h3>Planning</h3>
 First I started to plan out the map of the game where the Pacman and the Ghosts can move around. Then I started to think where the points and how I would show the points score. 
 <h3>Home page</h3>
-I wanted the home page to feel like a game in itself, I made it interactive so you have to click the ghost to start.
+For the home page I made a grid that allows a ghost to move around it at random and you have to click the ghost to start the game. I displayed text that has a pulse styling at the bottom of the page, this informs the user what to do. I wanted it to be fun and interactive which is why I made the home page a game in itself. When you hover over the ghost it add a styling that will shake letting the user know that it is interactive.
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/161072217-b91f2eb0-8b98-4752-889e-0395958ddd43.JPG" width="500">
 <h3>Choosing the map</h3>
-Once you click the ghost on the home page, you will be taken to the page where you choose the map you want to play.
+After clicking the ghost on the home page the audio of the game starts and the user now has to choose from two different characters to play with, each character has a different game map. I wanted to have two different characters and maps to make the game a bit more fun and different for the users. I prompt the user to choose a character by adding a pulsing style to the 'CHOOSE CHARACTER' text. The two character buttons change colour and scale on hover through adding a class, this lets the user know they can be clicked. When a character is clicked a class display of none is added to this page.
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/161072542-3b4055d9-9710-41f6-b278-17ef37f52007.JPG" width="500">
 <h3>Game count down</h3>
-When you choose the map a count downfrom 3 will begin for the game to start.
+This game count down shows for 3 seconds with a number countdown, whilst this countdown is going on the pacman and ghosts will not move and the key pad event listener is removed. After this 3 seconds a display of none is added which removes this countdown page, the ghosts move function is triggered, pacman move function is triggered and the key pad event listener is added so you can move pacman manually.
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/161073658-26efe415-b8ae-463e-bb5d-e978983f09b5.JPG" width="500">
 <h3>Start eating points</h3>
-Use the arrow keys on the keyboards to move pacman (you can press once or hold down if you wish) to start eating points.
+Now that the game has started and you can move around using the key pad it's time to start eating all the points. Pacman is able to move by adding the pacman class to the grid cell after determining the current direction. The points shown on the game are point classes added to the specified grid cells. So if the pacman class and the points class are on the same grid cell, the points class is removed, the points score at the top of the page is updated and an audio is played (pacman eats the point). 
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/161074212-b79da501-4ebe-4fa6-b8bb-f181082c9560.JPG" width="500">
 <h3>Losing a life</h3>
-When you collide with a ghost you will lose a life, pacman will turn into a scared emoji and the lives counts goes down.
+When the pacman class and the ghosts class are in the same grid cell, we know there has been a collision. If this is the case the ghosts and pacman are removed for short interval, the cell in which they collided get a class added to display a sad face, losing audio is played and the lives number at the bottom of the page is updated. After this short interval if the number of lives are greater than zero, the ghosts and pacman are returned to there starting positions by using a function I created that resets the characters and the game resumes as usual. 
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/161074899-7f3e64e6-cd81-497a-bc13-0ba5b7f72992.JPG" width="500">
 <h3>Eating a special point</h3>
-If you eat one of the 4 special points you will get extra points and the ghosts will turn scared (they turn blue), this will mean you can eat them for a 10 second period!
+I've mentioned eating points and special points are eaten the same the way however something different happens in this scenario other than getting more points. Each ghost has an isScared variable that is set to false and when set to true these ghost change there class and hence there colour changes to blue. When the pacman class and special points class are in the same grid cell the isScared variable for all ghosts are changed to true for an interval of 10 seconds.
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/161075386-ced28917-be42-474c-a0dc-160420596b3b.JPG" width="500">
 <h3>Eating a scared ghost</h3>
