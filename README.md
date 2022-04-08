@@ -38,7 +38,7 @@ Now that the game has started and you can move around using the key pad it's tim
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/161074212-b79da501-4ebe-4fa6-b8bb-f181082c9560.JPG" width="500">
 <h3>Losing a life</h3>
-When the pacman class and the ghosts class are in the same grid cell, we know there has been a collision. If this is the case the ghosts and pacman are removed for short interval, the cell in which they collided get a class added to display a sad face, losing audio is played and the lives number at the bottom of the page is updated. After this short interval if the number of lives are greater than zero, the ghosts and pacman are returned to there starting positions by using a function I created that resets the characters and the game resumes as usual. 
+When the pacman class and the ghosts class are in the same grid cell, we know there has been a collision. If this is the case the ghosts and pacman are removed for short interval, the cell in which they collided get a class added to display a sad face, losing audio is played and the lives number at the bottom of the page is updated. After this short interval the numbers of lives left is reviewed by an if statement, if the number of lives are greater than zero the ghosts and pacman are returned to their starting positions and the game is resumed as usual.
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/161074899-7f3e64e6-cd81-497a-bc13-0ba5b7f72992.JPG" width="500">
 <h3>Eating a special point</h3>
@@ -64,7 +64,7 @@ Whilst pacman is moving around the game eating points, there is a counter in bac
   </tr>
 </table>
 <h3>Game over</h3>
-If you lose all your lives the game stops, the characters are removed and the game over page is shown using the display styling. This page is then removed after a few seconds using a setTimeout and the game will navigate to the home page using a returnToStart function which stops the ghost and pacman from moving and remove the styling display of none to the home page (making it visible).
+When you lose a life the nuumber of lives the user has left is assessed by an if statement. If the number of lives left is zero the game is stopped, the characters are removed and the game over page is shown using the display styling. This page is then removed after a few seconds using a setTimeout where the game will navigate to the home page using a returnToStart function. This function stops the ghost and pacman from moving and removes the styling display of none to the home page (making it visible).
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/161079160-f32338be-e0ed-4e6c-8da1-1fc3fa442f32.JPG" width="500">
 
