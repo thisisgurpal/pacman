@@ -70,7 +70,7 @@ When you lose a life the nuumber of lives the user has left is assessed by an if
 
 # Code exmaples
 <h3>Adding, removing and moving Pacman</h3>
-Adding and removing pacman is done by adding and removing classes to grid numbers.
+Adding and removing pacman is done by specifying the new position then adding and removing classes to that new grid cell position.
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/159753712-29da9c45-307d-4ca8-a046-687280485d08.JPG" width="700">
 <img src="https://user-images.githubusercontent.com/97416784/159755095-1f5e4f3b-4333-4fe7-8128-6b8eacc47b46.JPG" width="350">
