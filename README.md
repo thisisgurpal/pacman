@@ -83,22 +83,21 @@ To use the arrow keys to move Pacman I had to know which key is being pressed by
 Adding this event listener is what is needed for the handleKeyDown function to be triggered when the key pad is pressed.
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/159759022-32c6c45a-5885-4502-b0a9-5e7a224d03d2.JPG" width="700">
-<h3>Adding, removing and moving Ghosts</h3>
+<h3>Adding Ghosts</h3>
 To add ghosts I started by making a class where I can specify the ghosts class name, starting index and speed.
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/160430571-bc0eae65-e4c2-448a-bb8c-ef4b74ad67c0.JPG" width="700">
 On the first level of the game I made sure there were only 4 ghosts all moving at the same speed.
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/160430768-08dae014-594f-4740-9c3d-5426a6450935.JPG" width="350">
-Adding and removing ghosts is done by adding and removing classes.
-<h3></h3>
-<img src="https://user-images.githubusercontent.com/97416784/160432224-e0b628c7-3495-46df-bdb5-ce56c5a8e7c6.JPG" width="700">
-<img src="https://user-images.githubusercontent.com/97416784/160432455-87a61d3b-bd80-4efe-ab33-f49323e877c4.JPG" width="700">
-For the moving of the ghosts I made an array of directions from which a random one is chosen for each ghost. The ghost will then have this direction for 7 moves before a new direction is chosen. If the ghost cannot move into the direction chosen, a new direction is then picked at random.  
-<h3></h3>
-<img src="https://user-images.githubusercontent.com/97416784/160440328-aea57783-1655-45a0-9453-4720ca46ad22.JPG" width="700">
+<h3>Creating the game grid</h3>
+<img src="https://user-images.githubusercontent.com/97416784/162480168-f49ce5c6-6e7b-43a2-8554-07a4e0a82cb2.JPG" width="700">
+<img src="https://user-images.githubusercontent.com/97416784/162480102-cdaf5f0f-a299-40be-b598-5cf0e1709702.JPG" width="700">
+<h3>Starting the game</h3>
+<img src="https://user-images.githubusercontent.com/97416784/162480659-a3b70d5c-353f-40cf-80ce-861865626a21.JPG" width="700">
+<h3>Menu</h3>
+<img src="https://user-images.githubusercontent.com/97416784/162480712-55953cf3-70a2-4cc8-98e2-265cb1520602.JPG" width="700">    
 
-    
 # Bugs
 Pacman and the ghosts may take a few seconds to load when first starting to play.
 # Challenges
