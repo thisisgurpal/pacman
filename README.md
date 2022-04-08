@@ -26,7 +26,7 @@ For the home page I made a grid that allows a ghost to move around it at random 
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/161072217-b91f2eb0-8b98-4752-889e-0395958ddd43.JPG" width="500">
 <h3>Choosing the map</h3>
-After clicking the ghost on the home page the audio of the game starts and the user now has to choose from two different characters to play with, each character has a different game map. I wanted to have two different characters and maps to make the game a bit more fun and different for the users. I prompt the user to choose a character by adding a pulsing style to the 'CHOOSE CHARACTER' text. The two character buttons change colour and scale on hover through adding a class, this lets the user know they can be clicked. When a character is clicked a class display of none is added to this page.
+After clicking the ghost on the home page the audio of the game starts and the user now has to choose from two different characters to play with, each character has a different game map. I wanted to have two different characters and maps to make the game a bit more fun and different for the users. I prompt the user to choose a character by adding a pulsing style to the 'CHOOSE CHARACTER' text. The two character buttons change colour and scale on hover through adding a class, this lets the user know they can be clicked. When a character is clicked a class display of none is added to this page, the game grid is set up and characters are all reset to starting positions.
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/161072542-3b4055d9-9710-41f6-b278-17ef37f52007.JPG" width="500">
 <h3>Game count down</h3>
@@ -64,7 +64,7 @@ Whilst pacman is moving around the game eating points, there is a counter in bac
   </tr>
 </table>
 <h3>Game over</h3>
-When you loose all your lives the game is over and you are returned back to the home page.
+If you lose all your lives the game stops, the characters are removed and the game over page is shown using the display styling. This page is then removed after a few seconds using a setTimeout and the game will navigate to the home page using a returnToStart function which stops the ghost and pacman from moving and remove the styling display of none to the home page (making it visible).
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/161079160-f32338be-e0ed-4e6c-8da1-1fc3fa442f32.JPG" width="500">
 
