@@ -74,28 +74,36 @@ Adding and removing pacman is done by specifying the new position then adding an
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/159753712-29da9c45-307d-4ca8-a046-687280485d08.JPG" width="700">
 <img src="https://user-images.githubusercontent.com/97416784/159755095-1f5e4f3b-4333-4fe7-8128-6b8eacc47b46.JPG" width="350">
-To figure out where the Pacman will move to, I had to understand the position it's currently in and also the direction it's looking to go. I took into concideration the walls so Pacman can't move into them.
+For the pacman to move the current position and the direction need to be taken into concideration. This if statement moves pacman for any direction chosen by the user using the arrow keys if there is not a wall already there, if the user pressed a key that is not up. down, left or right a console log is ran letting you know it's an invalid key.
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/159757240-e50b04ac-8da1-46d9-ad51-b2975c94c514.JPG" width="700">
-To use the arrow keys to move Pacman I had to know which key is being pressed by knowing the key codes. Depending on that key it will then run through the if statement in the code above (pacManMoveWithKey function).
+To use the arrow keys to move Pacman I had to know which key is being pressed by knowing the key codes. Depending on that key it will then run the if statement in the code above using a setInterval which includes pacman's speed.
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/159758942-dbc4dbea-4a76-46c7-8a70-754667567f3d.JPG" width="700">
-Adding this event listener is what is needed for the handleKeyDown function to be triggered when the key pad is pressed.
+Adding this event listener is needed for the handleKeyDown function to be triggered when the key pad is pressed.
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/159759022-32c6c45a-5885-4502-b0a9-5e7a224d03d2.JPG" width="700">
 <h3>Adding Ghosts</h3>
-To add ghosts I started by making a class where I can specify the ghosts class name, starting index and speed.
+I made a class that will enable me to add ghost's by specifying their class name, starting index and speed. In this class I have also included other variables like isScared which when set to true when pacman eats a special point, when this happens the ghost will turn blue and can be eaten by pacman for a period of 10 seconds.
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/160430571-bc0eae65-e4c2-448a-bb8c-ef4b74ad67c0.JPG" width="700">
-On the first level of the game I made sure there were only 4 ghosts all moving at the same speed.
+This is an array that I will use to interact with each ghost. If references the Ghost class to create a new ghosts. If i need to add a new ghost to this array which I do for each new level, all I need to do is use the push method on this array.
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/160430768-08dae014-594f-4740-9c3d-5426a6450935.JPG" width="350">
 <h3>Creating the game grid</h3>
+To make the grid for the game I specified the cells that don't need points, cells that need special points and the cells that need the walls. These arrays can now be used to make the grid.
+<h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/162480168-f49ce5c6-6e7b-43a2-8554-07a4e0a82cb2.JPG" width="700">
+This is the functions that actually makes the grid by adding classes to the specified cells in the array above. It also adds the starting values of the level, points and lives. In this function I further add pacman and the ghosts to their starting positions.
+<h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/162480102-cdaf5f0f-a299-40be-b598-5cf0e1709702.JPG" width="700">
 <h3>Starting the game</h3>
+When you choose your character after the home page these functions are triggered which start prepare the starting of the game. Initially the grid is cleared, the current pages gets removed, the grid is created using pacmans starting positions, all the characters are reset, the countdown to the game is triggered, and then pacman and the ghosts can move after a setTimout function. This all ensures that the game is reset to it's first initial level.
+<h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/162480659-a3b70d5c-353f-40cf-80ce-861865626a21.JPG" width="700">
 <h3>Menu</h3>
+The menu button on the game page have specifc functions that get triggered depending on the buttons you click. Initially when you click the menu button the ghosts and pacman get there intervals cleared which stops them from moving, and the key pad event listener is removed. However once you resume the game these then get set back to normal so you can play the game again.
+<h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/162480712-55953cf3-70a2-4cc8-98e2-265cb1520602.JPG" width="700">    
 
 # Bugs
