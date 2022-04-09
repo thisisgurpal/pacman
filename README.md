@@ -112,3 +112,5 @@ Pacman and the ghosts may take a few seconds to load when first starting to play
 Trying to incorporate the AI feature where the ghost follow the pacman around the game.
 # Wins
 Making a game that is functioning, has increasing levels and is fun to play!
+# Key learnings and takeaways
+
