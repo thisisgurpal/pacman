@@ -106,11 +106,14 @@ The menu button on the game page have specifc functions that get triggered depen
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/162480712-55953cf3-70a2-4cc8-98e2-265cb1520602.JPG" width="700">    
 
-# Bugs
-Pacman and the ghosts may take a few seconds to load when first starting to play.
 # Challenges
-Trying to incorporate the AI feature where the ghost follow the pacman around the game.
+A challenge I found with this project was having multiple repeated lines of codes in different sections. To combat this issue I made sure that to create smaller functions that do one thing and use that function in multiple places, this doesn’t only clean up up the code but it makes it easier to read.
+
+Another challenge was create the ghosts class to add the ghost into the game. Initially I was thinking about how to go about adding the ghosts and after looking back at my notes I made the decision that a class was a good way to go, however I found this a challenge to implement as I included other elements into it (e.g. isScared - is the ghost scared or not). Once I got the structure of class down it was much easier to add ghosts, increase speeds and change starting points if needed.
 # Wins
-Making a game that is functioning, has increasing levels and is fun to play!
+A win for me was implementing different pages into the game so you can navigate through into the game. I was also really happy with the home page as a way of entering the game. 
+
+Another win was making game have different components whilst playing to enhance the user experience. For example when you beat your high score the box will shake, when you collide with a ghost a sad face appears, pausing the game if you need to, moving on to new levels, adding satisfying audio/music, etc. 
 # Key learnings and takeaways
+
 
