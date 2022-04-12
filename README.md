@@ -115,5 +115,7 @@ A win for me was implementing different pages into the game so you can navigate 
 
 Another win was making game have different components whilst playing to enhance the user experience. For example when you beat your high score the box will shake, when you collide with a ghost a sad face appears, pausing the game if you need to, moving on to new levels, adding satisfying audio/music, etc. 
 # Key learnings and takeaways
+My key learning for this projects was getting familiar with the structure of HTML, how to style in CSS and create functionality in JavaScript. Using JavaScript to interact with the key board and amending HTML is one of my biggest takeaways. Initially when starting this course I didn't know the posibilities of amending HTML code from within JavaScript and even creating multiple functions that can be used in other functions. I though that was also a good learning points for me too, as initially my code had many repeated parts, so using functions that can be reused in other sections really made it easier to write and read.
 
+A future feature I would want to add to this is game is have the ghosts follow pacman around the game with the use AI. As this was my first project and I was getting familiar with the fundamentals I didn't have to time to implement this feature, but It's something I will look to do at some point.
 
