@@ -106,15 +106,11 @@ The menu button on the game page have specifc functions that get triggered depen
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/162480712-55953cf3-70a2-4cc8-98e2-265cb1520602.JPG" width="700">    
 
-# Challenges
-A challenge I found with this project was having multiple repeated lines of codes in different sections. To combat this issue I made sure that to create smaller functions that do one thing and use that function in multiple places, this doesn’t only clean up up the code but it makes it easier to read.
-
-Another challenge was create the ghosts class to add the ghost into the game. Initially I was thinking about how to go about adding the ghosts and after looking back at my notes I made the decision that a class was a good way to go, however I found this a challenge to implement as I included other elements into it (e.g. isScared - is the ghost scared or not). Once I got the structure of class down it was much easier to add ghosts, increase speeds and change starting points if needed.
-# Wins
-A win for me was implementing different pages into the game so you can navigate through into the game. I was also really happy with the home page as a way of entering the game. 
-
-Another win was making game have different components whilst playing to enhance the user experience. For example when you beat your high score the box will shake, when you collide with a ghost a sad face appears, pausing the game if you need to, moving on to new levels, adding satisfying audio/music, etc. 
 # Key learnings and takeaways
+A challenge I found with this project was having multiple repeated lines of codes in different sections. To combat this issue I made sure that to create smaller functions that do one thing and use that function in multiple places, this doesn’t only clean up up the code but it makes it easier to read. Another challenge was create the ghosts class to add the ghost into the game. Initially I was thinking about how to go about adding the ghosts and after looking back at my notes I made the decision that a class was a good way to go, however I found this a challenge to implement as I included other elements into it (e.g. isScared - is the ghost scared or not). Once I got the structure of class down it was much easier to add ghosts, increase speeds and change starting points if needed.
+
+A win for me was implementing different pages into the game so you can navigate through into the game. I was also really happy with the home page as a way of entering the game. Another win was making game have different components whilst playing to enhance the user experience. For example when you beat your high score the box will shake, when you collide with a ghost a sad face appears, pausing the game if you need to, moving on to new levels, adding satisfying audio/music, etc. 
+
 My key learning for this projects was getting familiar with the structure of HTML, how to style in CSS and create functionality in JavaScript. Using JavaScript to interact with the key board and amending HTML is one of my biggest takeaways. Initially when starting this course I didn't know the posibilities of amending HTML code from within JavaScript and even creating multiple functions that can be used in other functions. I though that was also a good learning points for me too, as initially my code had many repeated parts, so using functions that can be reused in other sections really made it easier to write and read.
 
 A future feature I would want to add to this is game is have the ghosts follow pacman around the game with the use AI. As this was my first project and I was getting familiar with the fundamentals I didn't have to time to implement this feature, but It's something I will look to do at some point.
