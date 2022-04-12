@@ -20,7 +20,7 @@ To create a game of your choice in a week using vanilla JavaScript.
 
 # Walk through
 <h3>Planning</h3>
-First I started to plan out the map of the game where the Pacman and the Ghosts can move around. Then I started to think where the points were and how I would show the points score. 
+When starting this project I thought about the games that I would want to build. Straight away I was drawn to Pacman as it was a game I played a lot as a kid. The next step was wireframing out the game and how I wanted the user to navigate through it, as well as what features I wanted to include. To plan the map of the game I create a grid in JavaScript with the cell numbers and then put this into a drawing tool. Highlighting over the cells that I want the walls, points, Pacman and ghosts to be gave me a good structure to then make the grid arrays and starting points. Then I started to think where the points, levels and lives would be shown.
 <h3>Home page</h3>
 For the home page I made a grid that allows a ghost to move around at random and you have to click the ghost to start the game. I displayed text that has a pulse styling at the bottom of the page, this informs the user what to do. I wanted it to be fun and interactive which is why I made the home page a game in itself. When you hover over the ghost it adds a styling that will shake letting the user know that it is interactive.
 <h3></h3>
