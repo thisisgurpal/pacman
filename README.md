@@ -10,7 +10,7 @@ Pacman: https://thisisgurpal.github.io/pacman/
 Gurpal Gohler (LinkedIn): https://www.linkedin.com/in/gurpal-gohler/
 
 # Brief
-To create a game of your choice in a week using vanilla JavaScript.
+To create a game of your choice in a week using Vanilla JavaScript.
 
 # Technologies and tools used
 * JavaScript
@@ -20,7 +20,7 @@ To create a game of your choice in a week using vanilla JavaScript.
 
 # Walk through
 <h3>Planning</h3>
-When starting this project I thought about the games that I would want to build. Straight away I was drawn to Pacman as it was a game I played a lot as a kid. The next step was wireframing out the game and how I wanted the user to navigate through it, as well as what features I wanted to include. To plan the map of the game I create a grid in JavaScript with the cell numbers and then put this into a drawing tool. Highlighting over the cells that I want the walls, points, Pacman and ghosts to be gave me a good structure to then make the grid arrays and starting points. Then I started to think where the points, levels and lives would be shown.
+When starting this project I thought about the games that I would want to build. Straight away I was drawn to Pacman as it was a game I played a lot as a kid. The next step was wireframing out the game and how I wanted the user to navigate through it, as well as what features I wanted to include. To plan the map of the game, I create a grid in JavaScript with the cell numbers and then put this into a drawing tool. Highlighting over the cells that I want the walls, points, Pacman and ghosts to be gave me a good structure to then make the grid arrays and starting points. Then I started to think where the points, levels and lives would be shown.
 <h3>Home page</h3>
 For the home page I made a grid that allows a ghost to move around at random and you have to click the ghost to start the game. I displayed text that has a pulse styling at the bottom of the page, this informs the user what to do. I wanted it to be fun and interactive which is why I made the home page a game in itself. When you hover over the ghost it adds a styling that will shake letting the user know that it is interactive.
 <h3></h3>
@@ -55,7 +55,7 @@ In this 10 second period when the ghosts are scared, if the Pacman class and sca
   </tr>
 </table>
 <h3>Level up</h3>
-Whilst Pacman is moving around the game eating points, there is a counter in background counting how many points are left in the game. Once there are no points left a page is shown letting you know the new level by removing the display of none. After a few seconds this page is removed by making the display equal to none again through the use of setTimeout. Further after this timeout the points, Pacman and ghosts are reset and the level value at the top of the page is updated. To make the game progressively more difficult on every new level the ghosts and Pacman have their speed speed increases and a new ghost is added by pushing a random ghost into the ghosts array.
+Whilst Pacman is moving around the game eating points, there is a counter in background counting how many points are left in the game. Once there are no points left a page is shown letting you know the new level by removing the display of none. After a few seconds this page is removed by making the display equal to none again through the use of setTimeout. Further after this timeout, the points, Pacman and ghosts are reset and the level value at the top of the page is updated. To make the game progressively more difficult on every new level the ghosts and Pacman have their speed speed increases and a new ghost is added by pushing a random ghost into the ghosts array.
 <h3></h3>
 <table>
   <tr>
@@ -74,7 +74,7 @@ Adding and removing Pacman is done by specifying the new position then adding an
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/159753712-29da9c45-307d-4ca8-a046-687280485d08.JPG" width="700">
 <img src="https://user-images.githubusercontent.com/97416784/159755095-1f5e4f3b-4333-4fe7-8128-6b8eacc47b46.JPG" width="350">
-For the Pacman to move the current position and the direction need to be taken into consideration. This if statement moves Pacman for any direction chosen by the user using the arrow keys if there is not a wall already there, if the user pressed a key that is not up. down, left or right a console log is run letting you know it's an invalid key.
+For the Pacman to move the current position and the direction need to be taken into consideration. This if statement moves Pacman for any direction chosen by the user using the arrow keys if there is not a wall already there. If the user pressed a key that is not up, down, left or right a console log is run letting you know it's an invalid key.
 <h3></h3>
 <img src="https://user-images.githubusercontent.com/97416784/159757240-e50b04ac-8da1-46d9-ad51-b2975c94c514.JPG" width="700">
 To use the arrow keys to move Pacman I had to know which key is being pressed by knowing the key codes. Depending on that key it will then run the if statement in the code above using a setInterval which includes Pacman's speed.
@@ -107,9 +107,9 @@ The menu button on the game page has specific functions that get triggered depen
 <img src="https://user-images.githubusercontent.com/97416784/162480712-55953cf3-70a2-4cc8-98e2-265cb1520602.JPG" width="700">    
 
 # Key learnings and takeaways
-A challenge I found with this project was having multiple repeated lines of codes in different sections. To combat this issue I made sure that to create smaller functions that do one thing and use that function in multiple places, this doesn’t only clean up the code but it makes it easier to read. Another challenge was to create the ghosts class to add the ghost into the game. Initially I was thinking about how to go about adding the ghosts and after looking back at my notes I made the decision that a class was a good way to go, however I found this a challenge to implement as I included other elements into it (e.g. isScared - is the ghost scared or not). Once I got the structure of class down it was much easier to add ghosts, increase speeds and change starting points if needed.
+A challenge I found with this project was having multiple repeated lines of codes in different sections. To combat this issue I made sure that I create smaller functions that do one thing and use that function in multiple places, this doesn’t only clean up the code but it makes it easier to read. Another challenge was to create the ghosts class to add the ghost into the game. Initially I was thinking about how to go about adding the ghosts and after looking back at my notes I made the decision that a class was a good way to go, however I found this a challenge to implement as I included other elements into it (e.g. isScared - is the ghost scared or not). Once I got the structure of class down it was much easier to add ghosts, increase speeds and change starting points if needed.
 
-A win for me was implementing different pages into the game so you can navigate through into the game. I was also really happy with the home page as a way of entering the game. Another win was making games have different components whilst playing to enhance the user experience. For example when you beat your high score the box will shake, when you collide with a ghost a sad face appears, pausing the game if you need to, moving on to new levels, adding satisfying audio/music, etc. 
+A win for me was implementing different pages into the game so you can navigate through into the game. I was also really happy with the home page as a way of entering the game. Another win was making the game have different components whilst playing to enhance the user experience. For example when you beat your high score the box will shake, when you collide with a ghost a sad face appears, pausing the game if you need to, moving on to new levels, adding satisfying audio/music, etc. 
 
 My key learning for this project was getting familiar with the structure of HTML, how to style in CSS and create functionality in JavaScript. Using JavaScript to interact with the keyboard and amending HTML is one of my biggest takeaways. Initially when starting this course I didn't know the possibilities of amending HTML code from within JavaScript and even creating multiple functions that can be used in other functions. I thought that was also a good learning point for me too, as initially my code had many repeated parts, so using functions that can be reused in other sections really made it easier to write and read.
 
